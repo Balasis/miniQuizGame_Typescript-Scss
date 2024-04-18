@@ -21,21 +21,42 @@ class Player {
     }
 }
 class Question {
-    constructor(question, op1, op2, op3, op4) {
-        this.question = question;
-        this.options = [op1, op2, op3, op4];
+    constructor(difficulty) {
+        this.question = null;
+        this.options = null;
+        this.correctAnswer = null;
+        this.difficulty = difficulty;
+        this.fetchQuestion(this.difficulty);
+        // this.question=question;
+        // this.options=[op1,op2,op3,op4];
     }
     getTheQuestion() {
         return this.question;
     }
-    getOption(index) {
-        return this.options[index];
+    getTheCorrectAnswer() {
+        return this.correctAnswer;
     }
-}
-class EasyQuestion extends Question {
-    constructor(question, op1, op2, op3, op4) {
-        super(question, op1, op2, op3, op4);
-        this.difficultyLevel = 1;
+    getOption(index) {
+        return this.options ? this.options[index] : null;
+    }
+    fetchQuestion(difficulty) {
+        let jsonQuestionPath;
+        if (difficulty == 1) {
+            jsonQuestionPath = "./build/easyQuestions.json";
+        }
+        else if (difficulty == 2) {
+            jsonQuestionPath = "./build/easyQuestions.json";
+        }
+        else {
+            jsonQuestionPath = "./build/easyQuestions.json";
+        }
+        fetch(jsonQuestionPath)
+            .then(response => { return response.json(); })
+            .then(DaResponse => {
+            console.log(DaResponse);
+            this.question = DaResponse.question;
+            this.options = DaResponse.options;
+        });
     }
 }
 class Stage {
@@ -87,3 +108,4 @@ class TheQuiz {
     }
 }
 console.log(new TheQuiz(0, 0, new Player("John", 0)).toString());
+console.log(new Question(1).getTheQuestion());
