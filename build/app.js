@@ -21,14 +21,11 @@ class Player {
     }
 }
 class Question {
-    constructor(difficulty) {
-        this.question = null;
-        this.options = null;
-        this.correctAnswer = null;
+    constructor(question, options, correctAnswer, difficulty) {
+        this.question = question;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
         this.difficulty = difficulty;
-        this.fetchQuestion(this.difficulty);
-        // this.question=question;
-        // this.options=[op1,op2,op3,op4];
     }
     getTheQuestion() {
         return this.question;
@@ -38,25 +35,6 @@ class Question {
     }
     getOption(index) {
         return this.options ? this.options[index] : null;
-    }
-    fetchQuestion(difficulty) {
-        let jsonQuestionPath;
-        if (difficulty == 1) {
-            jsonQuestionPath = "./build/easyQuestions.json";
-        }
-        else if (difficulty == 2) {
-            jsonQuestionPath = "./build/easyQuestions.json";
-        }
-        else {
-            jsonQuestionPath = "./build/easyQuestions.json";
-        }
-        fetch(jsonQuestionPath)
-            .then(response => { return response.json(); })
-            .then(DaResponse => {
-            console.log(DaResponse);
-            this.question = DaResponse.question;
-            this.options = DaResponse.options;
-        });
     }
 }
 class Stage {
@@ -107,5 +85,30 @@ class TheQuiz {
      `;
     }
 }
-console.log(new TheQuiz(0, 0, new Player("John", 0)).toString());
-console.log(new Question(1).getTheQuestion());
+let jsonQuestionPath;
+// if (1){
+//     jsonQuestionPath="./build/easyQuestions.json";
+// }else if(2){
+//     jsonQuestionPath="./build/easyQuestions.json";
+// }else{
+//     jsonQuestionPath="./build/easyQuestions.json";
+// }
+//AND like that you can create an array , by using a loop and having randomizer among..perhaps pick up a randomizer after
+//the 3 fetches..or even better you can have 3 fetches?...you check this out later....
+fetch("./build/easyQuestions.json")
+    .then(response => { return response.json(); })
+    .then(DaResponse => {
+    let aQuestion = new Question(DaResponse.question, DaResponse.options, DaResponse.correctAnswer, 1);
+    let aStage = new Stage(1, 500000, false, aQuestion);
+    console.log(aStage.getQuestion().getOption(0));
+});
+// et question=new Question(1);
+// // console.log(question.getTheQuestion());//would result to null cause ajax..but you could use
+// question.fetchQuestion().then(() => {
+//     console.log(question.getTheQuestion());
+// });
+// //but again you need to make the fetchQuestion public ; ...idk yet if the whole thing is an
+// //issue but for now I'll leave it as it is..
+// function testing(){
+// console.log(question.getTheQuestion());
+// }

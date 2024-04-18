@@ -1,9 +1,6 @@
 //Some utilities: types for shortcuts and methods for random numbers e.t.c
 type SorN=string|number;//trying to save some space
 
-
-
-
 class Player{
     public constructor(private name:string,private moneyEarned:number){
 
@@ -31,17 +28,11 @@ class Player{
 }
 
 
-type difficultyLevels=1|2|3;
-class Question{
-    private question:string | null=null;
-    private options: SorN[]  | null=null;
-    private correctAnswer:string | null=null;
-    private readonly difficulty:difficultyLevels;
-    public constructor(difficulty:difficultyLevels){
-        this.difficulty=difficulty;        
-        this.fetchQuestion(this.difficulty);
-        // this.question=question;
-        // this.options=[op1,op2,op3,op4];
+type difficultyLevel=1|2|3;
+class Question{    
+    private readonly difficulty:difficultyLevel;
+    public constructor(private readonly question:string,private readonly options: SorN[],private readonly correctAnswer:string,difficulty:difficultyLevel){
+        this.difficulty=difficulty;   
     }
     public getTheQuestion():SorN | null{
         return this.question;
@@ -54,34 +45,13 @@ class Question{
     public getOption(index:number):SorN | null{
         return this.options ? this.options[index] : null;
     }
-
-    private fetchQuestion(difficulty:difficultyLevels):void{
-        let jsonQuestionPath:string;
-        if (difficulty==1){
-            jsonQuestionPath="./build/easyQuestions.json";
-        }else if(difficulty==2){
-            jsonQuestionPath="./build/easyQuestions.json";
-        }else{
-            jsonQuestionPath="./build/easyQuestions.json";
-        }
-        fetch(jsonQuestionPath)
-            .then(response=>{return response.json();})
-            .then(DaResponse=>{
-                console.log(DaResponse);
-                this.question=DaResponse.question;
-                this.options=DaResponse.options;
-            })      
-    }
 }
 
 
 
 
-class Stage{
-    private question: Question;
-    
-    public constructor(private stageNumber: number,private stageMoney:number,private assistUsed:boolean,question:Question){
-        this.question=question;
+class Stage{    
+    public constructor(private stageNumber: number,private stageMoney:number,private assistUsed:boolean, private question: Question){        
     }
 
     public getStageNumber():number{
@@ -103,7 +73,6 @@ class Stage{
     public setAssistedUsed(assistedYorN:boolean):void{
         this.assistUsed=assistedYorN;
     }
-
 }
 
 
@@ -137,5 +106,41 @@ class TheQuiz{
     }
 }
 
-console.log(new TheQuiz(0,0,new Player("John",0)).toString());
-console.log(new Question(1).getTheQuestion());
+
+
+
+            let jsonQuestionPath:string;
+
+            // if (1){
+            //     jsonQuestionPath="./build/easyQuestions.json";
+            // }else if(2){
+            //     jsonQuestionPath="./build/easyQuestions.json";
+            // }else{
+            //     jsonQuestionPath="./build/easyQuestions.json";
+            // }
+
+
+
+            //AND like that you can create an array , by using a loop and having randomizer among..perhaps pick up a randomizer after
+            //the 3 fetches..or even better you can have 3 fetches?...you check this out later....
+            fetch("./build/easyQuestions.json")
+                .then(response=>{return response.json();})
+                .then(DaResponse=>{
+                    let aQuestion=new Question(DaResponse.question,DaResponse.options,DaResponse.correctAnswer,1);
+                    let aStage=new Stage(1,500000,false,aQuestion);
+                    console.log(aStage.getQuestion().getOption(0));
+                })
+    
+
+
+// et question=new Question(1);
+// // console.log(question.getTheQuestion());//would result to null cause ajax..but you could use
+// question.fetchQuestion().then(() => {
+//     console.log(question.getTheQuestion());
+// });
+
+// //but again you need to make the fetchQuestion public ; ...idk yet if the whole thing is an
+// //issue but for now I'll leave it as it is..
+// function testing(){
+// console.log(question.getTheQuestion());
+// }
