@@ -163,3 +163,5 @@ loadInTheQuiz("./build/easyQuestions.json",1,5,indexesOfEasyQuestionsUsed);
 loadInTheQuiz("./build/mediumQuestions.json",6,10,indexesOfMediumQuestionsUsed);
 loadInTheQuiz("./build/hardQuestions.json",11,15,indexesOfHardQuestionsUsed);
             
+//Menu functions
+
