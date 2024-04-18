@@ -1,0 +1,53 @@
+[
+    {
+      "question": "What is the capital of Italy?",
+      "options": ["Rome", "Paris", "Berlin", "Madrid"],
+      "correctAnswer": "Rome"
+    },
+    {
+      "question": "Who painted the Mona Lisa?",
+      "options": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Michelangelo"],
+      "correctAnswer": "Leonardo da Vinci"
+    },
+    {
+      "question": "Which planet is known as the Red Planet?",
+      "options": ["Mars", "Venus", "Mercury", "Jupiter"],
+      "correctAnswer": "Mars"
+    },
+    {
+      "question": "Which country is famous for kangaroos?",
+      "options": ["Australia", "Canada", "Brazil", "India"],
+      "correctAnswer": "Australia"
+    },
+    {
+      "question": "Who wrote the play 'Romeo and Juliet'?",
+      "options": ["William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain"],
+      "correctAnswer": "William Shakespeare"
+    },
+    {
+      "question": "What is the chemical symbol for water?",
+      "options": ["H2O", "CO2", "NaCl", "O2"],
+      "correctAnswer": "H2O"
+    },
+    {
+      "question": "Which mammal can fly?",
+      "options": ["Bat", "Mouse", "Rabbit", "Dog"],
+      "correctAnswer": "Bat"
+    },
+    {
+      "question": "Who discovered penicillin?",
+      "options": ["Alexander Fleming", "Marie Curie", "Albert Einstein", "Isaac Newton"],
+      "correctAnswer": "Alexander Fleming"
+    },
+    {
+      "question": "What is the tallest mountain in the world?",
+      "options": ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"],
+      "correctAnswer": "Mount Everest"
+    },
+    {
+      "question": "Which gas do plants absorb during photosynthesis?",
+      "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+      "correctAnswer": "Carbon dioxide"
+    }
+  ]
+  

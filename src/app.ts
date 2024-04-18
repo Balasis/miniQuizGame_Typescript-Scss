@@ -1,6 +1,9 @@
-//Some utilities: types for shortcuts and methods for random numbers e.t.c
-type SorN=string|number;//trying to save some space
+//Some utilities: types for shortcuts and functions for random numbers e.t.c
+    type SorN=string|number;//trying to save some space
 
+    function randomizer(min:number,max:number):number{
+    return Math.floor((Math.random() * (max-min))+min);
+    }
 class Player{
     public constructor(private name:string,private moneyEarned:number){
 
@@ -78,8 +81,15 @@ class Stage{
 
 class TheQuiz{
     private thePlayer:Player;
-    public constructor(private timeSinceQuizStarted:number,private stageCounter:number=0,thePlayer:Player){
+    private timeSinceQuizStarted:number;
+    private stageCounter:number=0;
+    private stagesBoard: Record<number, Stage> = {};    
+    private moneyBoard: Record<number, number> = {};
+
+    public constructor(thePlayer:Player,timeSinceQuizStarted:number,stageCounter:number){
         this.thePlayer=thePlayer;
+        this.timeSinceQuizStarted=timeSinceQuizStarted;
+        this.stageCounter=stageCounter;
     }
 
     public settimeSinceQuizStarted(timeSinceQuizStarted:number):void{
@@ -88,6 +98,23 @@ class TheQuiz{
 
     public setStageCounter(StageCounterNum:number):void{
         this.stageCounter=StageCounterNum;
+    }
+
+    public addStageToStagesBoard(stageNumber: number, stage: Stage) {
+        this.stagesBoard[stageNumber] = stage;
+    }
+
+    public addToMoneyBoard(boardNum:number,money: number) {
+        this.moneyBoard[boardNum] = money;
+    }
+
+    public getMoneyBoard(): Record<number, number> {
+        return this.moneyBoard;
+    }
+    
+
+    public getStagesBoard(): Record<number, Stage> {
+        return this.stagesBoard;
     }
 
     public gettimeSinceQuizStarted():number{
@@ -106,41 +133,33 @@ class TheQuiz{
     }
 }
 
+let thePlayer=new Player("John",0);
+let theQuiz=new TheQuiz(thePlayer,0,1);
+let indexesOfEasyQuestionsUsed:number[]=[];
+let indexesOfMediumQuestionsUsed:number[]=[];
+let indexesOfHardQuestionsUsed:number[]=[];
 
-
-
-            let jsonQuestionPath:string;
-
-            // if (1){
-            //     jsonQuestionPath="./build/easyQuestions.json";
-            // }else if(2){
-            //     jsonQuestionPath="./build/easyQuestions.json";
-            // }else{
-            //     jsonQuestionPath="./build/easyQuestions.json";
-            // }
-
-
-
-            //AND like that you can create an array , by using a loop and having randomizer among..perhaps pick up a randomizer after
-            //the 3 fetches..or even better you can have 3 fetches?...you check this out later....
-            fetch("./build/easyQuestions.json")
+        function loadInTheQuiz(path:string,startingIndexStage:number,endingIndexStage:number,indexesCheckArray:number[]){
+            fetch(path)
                 .then(response=>{return response.json();})
-                .then(DaResponse=>{
-                    let aQuestion=new Question(DaResponse.question,DaResponse.options,DaResponse.correctAnswer,1);
-                    let aStage=new Stage(1,500000,false,aQuestion);
-                    console.log(aStage.getQuestion().getOption(0));
+                .then(questionsFetch=>{
+                    fetch("./build/moneyBoard.json").then(responsee=>{return responsee.json();}).then(moneyBoardFetch=>{
+                        for(let i=startingIndexStage;i<=endingIndexStage;i++){
+                            let theRandom;
+                            do{
+                            theRandom=randomizer(1,questionsFetch.length);
+                            }while(indexesCheckArray.indexOf(theRandom)!== -1)
+                            indexesCheckArray.push(theRandom);
+                            let aQuestion=new Question(questionsFetch[theRandom].question,questionsFetch[theRandom].options,questionsFetch[theRandom].correctAnswer,1);
+                            let aStage=new Stage(i,moneyBoardFetch[i],false,aQuestion);
+                            theQuiz.addStageToStagesBoard(i,aStage);
+                        }
+                        console.log(theQuiz.getStagesBoard());
+                    }) 
                 })
-    
+        }
 
-
-// et question=new Question(1);
-// // console.log(question.getTheQuestion());//would result to null cause ajax..but you could use
-// question.fetchQuestion().then(() => {
-//     console.log(question.getTheQuestion());
-// });
-
-// //but again you need to make the fetchQuestion public ; ...idk yet if the whole thing is an
-// //issue but for now I'll leave it as it is..
-// function testing(){
-// console.log(question.getTheQuestion());
-// }
+loadInTheQuiz("./build/easyQuestions.json",1,5,indexesOfEasyQuestionsUsed);
+loadInTheQuiz("./build/mediumQuestions.json",6,10,indexesOfMediumQuestionsUsed);
+loadInTheQuiz("./build/hardQuestions.json",11,15,indexesOfHardQuestionsUsed);
+            

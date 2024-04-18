@@ -1,6 +1,52 @@
-{
-    "question": "What is the capital of France?",
-    "options": ["London", "Paris", "Berlin", "Madrid"],
-    "correctAnswer": "Paris"
-  }
   
+     [
+      {
+      "question": "What is the capital of France?",
+      "options": ["London", "Paris", "Berlin", "Madrid"],
+      "correctAnswer": "Paris"
+      },{
+      "question": "What is the largest planet in our solar system?",
+      "options": ["Earth", "Jupiter", "Mars", "Saturn"],
+      "correctAnswer": "Jupiter"
+      },
+      {
+      "question": "Who wrote 'Romeo and Juliet'?",
+      "options": ["William Shakespeare", "Jane Austen", "Charles Dickens", "Leo Tolstoy"],
+      "correctAnswer": "William Shakespeare"
+      },
+      {
+      "question": "What is the capital of Italy?",
+      "options": ["Rome", "Venice", "Milan", "Florence"],
+      "correctAnswer": "Rome"
+      },
+      {
+      "question": "Which planet is known as the 'Red Planet'?",
+      "options": ["Venus", "Mars", "Jupiter", "Neptune"],
+      "correctAnswer": "Mars"
+      },
+      {
+      "question": "What is the chemical symbol for water?",
+      "options": ["O", "W", "H2O", "H"],
+      "correctAnswer": "H2O"
+      },
+      {
+      "question": "Who painted the Mona Lisa?",
+      "options": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Michelangelo"],
+      "correctAnswer": "Leonardo da Vinci"
+      },
+      {
+      "question": "Which is the tallest mammal?",
+      "options": ["Elephant", "Giraffe", "Hippo", "Rhino"],
+      "correctAnswer": "Giraffe"
+      },
+      {
+      "question": "What is the chemical symbol for gold?",
+      "options": ["Au", "Ag", "Fe", "Cu"],
+      "correctAnswer": "Au"
+      },
+      {
+      "question": "What is the capital of Spain?",
+      "options": ["Madrid", "Barcelona", "Seville", "Valencia"],
+      "correctAnswer": "Madrid"
+      }
+    ]
