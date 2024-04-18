@@ -1,3 +1,5 @@
+type SorN=string|number;//trying to save some space
+
 class Player{
     public constructor(private name:string,private moneyEarned:number){
 
@@ -22,6 +24,59 @@ class Player{
     public toString():string{
     return `Player name: ${this.name.toString()} holds so far ${this.moneyEarned}`;
     }
+}
+class Question{
+    private readonly question:string;
+    private readonly options: SorN[];
+    public constructor(question:string,op1:SorN,op2:SorN,op3:SorN,op4:SorN){
+        this.question=question;
+        this.options=[op1,op2,op3,op4];
+    }
+    public getTheQuestion():SorN{
+        return this.question;
+    }
+    
+    public getOption(index:number):SorN{
+        return this.options[index];
+    }
+}
+
+type difficultyLevels=1|2|3;
+
+class EasyQuestion extends Question{
+    private readonly difficultyLevel:difficultyLevels=1;
+    public constructor(question:string,op1:SorN,op2:SorN,op3:SorN,op4:SorN){
+        super(question,op1,op2,op3,op4);
+    }
+}
+
+class Stage{
+    private question: Question;
+    
+    public constructor(private stageNumber: number,private stageMoney:number,private assistUsed:boolean,question:Question){
+        this.question=question;
+    }
+
+    public getStageNumber():number{
+        return this.stageNumber;
+    }
+
+    public getStageMoney():number{
+        return this.stageMoney;
+    }
+
+    public getQuestion(): Question {
+        return this.question;
+    }
+
+    public getAssistedUsed():boolean{
+        return this.assistUsed;
+    }
+
+    public setAssistedUsed(assistedYorN:boolean):void{
+        this.assistUsed=assistedYorN;
+    }
+
 }
 
 
