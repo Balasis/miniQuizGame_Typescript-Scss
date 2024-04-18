@@ -34,19 +34,19 @@ class Player{
 type difficultyLevel=1|2|3;
 class Question{    
     private readonly difficulty:difficultyLevel;
-    public constructor(private readonly question:string,private readonly options: SorN[],private readonly correctAnswer:string,difficulty:difficultyLevel){
+    public constructor(private readonly question:string,private readonly options: string[],private readonly correctAnswer:string,difficulty:difficultyLevel){
         this.difficulty=difficulty;   
     }
-    public getTheQuestion():SorN | null{
+    public getTheQuestion():string{
         return this.question;
     }
 
-    public getTheCorrectAnswer():SorN | null{
+    public getTheCorrectAnswer():string{
         return this.correctAnswer;
     }
     
-    public getOption(index:number):SorN | null{
-        return this.options ? this.options[index] : null;
+    public getOption(index:number):string{
+        return this.options[index];
     }
 }
 
@@ -153,15 +153,61 @@ let indexesOfHardQuestionsUsed:number[]=[];
                             let aQuestion=new Question(questionsFetch[theRandom].question,questionsFetch[theRandom].options,questionsFetch[theRandom].correctAnswer,1);
                             let aStage=new Stage(i,moneyBoardFetch[i],false,aQuestion);
                             theQuiz.addStageToStagesBoard(i,aStage);
+                            
                         }
-                        console.log(theQuiz.getStagesBoard());
                     }) 
                 })
         }
 
+
+            
+//Menu functions
 loadInTheQuiz("./build/easyQuestions.json",1,5,indexesOfEasyQuestionsUsed);
 loadInTheQuiz("./build/mediumQuestions.json",6,10,indexesOfMediumQuestionsUsed);
 loadInTheQuiz("./build/hardQuestions.json",11,15,indexesOfHardQuestionsUsed);
-            
-//Menu functions
+
+
+
+//declarations of Menu
+const startingMenu=document.getElementById("startingMenu")!;
+const newGame=document.getElementById("newGame")!;
+const preferences=document.getElementById("preferences");//omited the "!" to check"?"
+const aboutUs=document.getElementById("aboutUs")!;
+
+
+//declarations of Quiz
+const theQuizUI=document.getElementById("theQuizUI")!;
+const scorePanel=document.getElementById("scorePanel")!;
+
+const theQuestion=document.getElementById("theQuestion")!;
+const theOptions=document.getElementById("theOptions")!;
+const theOpA=document.getElementById("theOptions__A&B__A")!;
+const theOpB=document.getElementById("theOptions__A&B__B")!;
+const theOpC=document.getElementById("theOptions__C&D__C")!;
+const theOpD=document.getElementById("theOptions__C&D__D")!;
+
+//by placing ! in the end you ensure the typescript that it will find it for sure
+
+newGame.addEventListener('click',function(){
+
+    initializeQuizUi();
+})
+
+function initializeQuizUi(){
+    //well if you try to have different types typescript wont make it easy for you
+    // const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+    // if (stage!=null){
+        //you can also do it like that: without using methods...
+        console.log(theQuiz.getStagesBoard()[1]["question"]["question"]);
+    theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+    //trying with json type...array instead of methods
+    theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
+    // }
+    // .getQuestion().getTheQuestion()!.toString()
+}
+//use of Optional Chaining (?.) so if its null or undefined it will stop there
+preferences?.addEventListener('click',function(){
+
+})
+
 

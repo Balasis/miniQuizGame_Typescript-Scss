@@ -37,7 +37,7 @@ class Question {
         return this.correctAnswer;
     }
     getOption(index) {
-        return this.options ? this.options[index] : null;
+        return this.options[index];
     }
 }
 class Stage {
@@ -123,10 +123,43 @@ function loadInTheQuiz(path, startingIndexStage, endingIndexStage, indexesCheckA
                 let aStage = new Stage(i, moneyBoardFetch[i], false, aQuestion);
                 theQuiz.addStageToStagesBoard(i, aStage);
             }
-            console.log(theQuiz.getStagesBoard());
         });
     });
 }
+//Menu functions
 loadInTheQuiz("./build/easyQuestions.json", 1, 5, indexesOfEasyQuestionsUsed);
 loadInTheQuiz("./build/mediumQuestions.json", 6, 10, indexesOfMediumQuestionsUsed);
 loadInTheQuiz("./build/hardQuestions.json", 11, 15, indexesOfHardQuestionsUsed);
+//declarations of Menu
+const startingMenu = document.getElementById("startingMenu");
+const newGame = document.getElementById("newGame");
+const preferences = document.getElementById("preferences"); //omited the "!" to check"?"
+const aboutUs = document.getElementById("aboutUs");
+//declarations of Quiz
+const theQuizUI = document.getElementById("theQuizUI");
+const scorePanel = document.getElementById("scorePanel");
+const theQuestion = document.getElementById("theQuestion");
+const theOptions = document.getElementById("theOptions");
+const theOpA = document.getElementById("theOptions__A&B__A");
+const theOpB = document.getElementById("theOptions__A&B__B");
+const theOpC = document.getElementById("theOptions__C&D__C");
+const theOpD = document.getElementById("theOptions__C&D__D");
+//by placing ! in the end you ensure the typescript that it will find it for sure
+newGame.addEventListener('click', function () {
+    initializeQuizUi();
+});
+function initializeQuizUi() {
+    //well if you try to have different types typescript wont make it easy for you
+    // const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+    // if (stage!=null){
+    //you can also do it like that: without using methods...
+    console.log(theQuiz.getStagesBoard()[1]["question"]["question"]);
+    theQuestion.textContent = theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+    //trying with json type...array instead of methods
+    theOpA.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][0];
+    // }
+    // .getQuestion().getTheQuestion()!.toString()
+}
+//use of Optional Chaining (?.) so if its null or undefined it will stop there
+preferences === null || preferences === void 0 ? void 0 : preferences.addEventListener('click', function () {
+});
