@@ -4,6 +4,8 @@
     function randomizer(min:number,max:number):number{
     return Math.floor((Math.random() * (max-min))+min);
     }
+
+
 class Player{
     public constructor(private name:string,private moneyEarned:number){
 
@@ -29,7 +31,6 @@ class Player{
     return `Player name: ${this.name.toString()} holds so far ${this.moneyEarned}`;
     }
 }
-
 
 type difficultyLevel=1|2|3;
 class Question{    
@@ -129,7 +130,6 @@ class TheQuiz{
 
 let thePlayer=new Player("John",0);
 let theQuiz=new TheQuiz(thePlayer,0,1);
-
         
         function loadInTheQuiz(path:string,startingIndexStage:number,endingIndexStage:number,dif:difficultyLevel){
             let indexesOfQuestionsUsed:number[]=[];
