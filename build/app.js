@@ -75,8 +75,11 @@ class TheQuiz {
     settimeSinceQuizStarted(timeSinceQuizStarted) {
         this.timeSinceQuizStarted = timeSinceQuizStarted;
     }
-    setStageCounter(StageCounterNum) {
-        this.stageCounter = StageCounterNum;
+    increaseStageCounter() {
+        this.stageCounter = this.stageCounter + 1;
+    }
+    resetStageCounter() {
+        this.stageCounter = 0;
     }
     addStageToStagesBoard(stageNumber, stage) {
         this.stagesBoard[stageNumber] = stage;
@@ -144,21 +147,65 @@ const theOpA = document.getElementById("theOptions__A&B__A");
 const theOpB = document.getElementById("theOptions__A&B__B");
 const theOpC = document.getElementById("theOptions__C&D__C");
 const theOpD = document.getElementById("theOptions__C&D__D");
+//you need to declare this as HTMLCollection so you might set a style...
+//sigh this typescript started to get on my nerves
+//This is a specific usage pattern provided by TypeScript's DOM library, 
+//where you're using a predefined interface (HTMLCollectionOf<T>) with
+// a specific type (HTMLElement) to describe the nature of the collection.
+//While it may look similar to generic type syntax, it's actually a specialized 
+//syntax provided by TypeScript for working with DOM collections.
+const allOp = document.getElementsByClassName("qOption");
 //by placing ! in the end you ensure the typescript that it will find it for sure
 newGame.addEventListener('click', function () {
     initializeQuizUi();
 });
 function initializeQuizUi() {
-    //well if you try to have different types typescript wont make it easy for you
-    // const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
-    // if (stage!=null){
-    //you can also do it like that: without using methods...
+    /*well if you try to have different types typescript wont make it easy for you
+    const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+    if (stage!=null){
+    you can also do it like that: without using methods...*/
     console.log(theQuiz.getStagesBoard()[1]["question"]["question"]);
     theQuestion.textContent = theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     //trying with json type...array instead of methods
     theOpA.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][0];
+    theOpB.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][1];
+    theOpC.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][2];
+    theOpD.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][3];
     // }
     // .getQuestion().getTheQuestion()!.toString()
+}
+function updateQuestion() {
+    console.log("got in");
+    let sc = theQuiz.getStageCounter();
+    theQuestion.textContent = theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
+    theOpA.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][0];
+    theOpB.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][1];
+    theOpC.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][2];
+    theOpD.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][3];
+}
+let isOnload = false;
+for (let e = 0; e < allOp.length; e++) {
+    allOp[e].addEventListener('click', function () {
+        if (isOnload) {
+            console.log("we are on load..plz try later");
+            return;
+        }
+        if (allOp[e].textContent == theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()) {
+            isOnload = true;
+            allOp[e].style.color = "orange";
+            setTimeout(function () {
+                allOp[e].style.color = "green";
+                setTimeout(function () {
+                    theQuiz.increaseStageCounter();
+                    updateQuestion();
+                    allOp[e].style.color = "initial";
+                    isOnload = false;
+                }, 2000);
+            }, 3000);
+        }
+        else {
+        }
+    });
 }
 //use of Optional Chaining (?.) so if its null or undefined it will stop there
 preferences === null || preferences === void 0 ? void 0 : preferences.addEventListener('click', function () {
