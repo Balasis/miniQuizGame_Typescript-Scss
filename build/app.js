@@ -67,7 +67,6 @@ class TheQuiz {
     constructor(thePlayer, timeSinceQuizStarted, stageCounter) {
         this.stageCounter = 0;
         this.stagesBoard = {};
-        this.moneyBoard = {};
         this.thePlayer = thePlayer;
         this.timeSinceQuizStarted = timeSinceQuizStarted;
         this.stageCounter = stageCounter;
@@ -83,12 +82,6 @@ class TheQuiz {
     }
     addStageToStagesBoard(stageNumber, stage) {
         this.stagesBoard[stageNumber] = stage;
-    }
-    addToMoneyBoard(boardNum, money) {
-        this.moneyBoard[boardNum] = money;
-    }
-    getMoneyBoard() {
-        return this.moneyBoard;
     }
     getStagesBoard() {
         return this.stagesBoard;
@@ -164,7 +157,9 @@ function initializeQuizUi() {
     const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     if (stage!=null){
     you can also do it like that: without using methods...*/
-    console.log(theQuiz.getStagesBoard()[1]["question"]["question"]);
+    for (let i = 1; i < Object.keys(theQuiz.getStagesBoard()).length; i++) {
+        console.log(Object.keys(theQuiz.getStagesBoard()).length);
+    }
     theQuestion.textContent = theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     //trying with json type...array instead of methods
     theOpA.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][0];
@@ -175,7 +170,6 @@ function initializeQuizUi() {
     // .getQuestion().getTheQuestion()!.toString()
 }
 function updateQuestion() {
-    console.log("got in");
     let sc = theQuiz.getStageCounter();
     theQuestion.textContent = theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
     theOpA.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][0];
@@ -190,9 +184,9 @@ for (let e = 0; e < allOp.length; e++) {
             console.log("we are on load..plz try later");
             return;
         }
+        isOnload = true;
+        allOp[e].style.color = "orange";
         if (allOp[e].textContent == theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()) {
-            isOnload = true;
-            allOp[e].style.color = "orange";
             setTimeout(function () {
                 allOp[e].style.color = "green";
                 setTimeout(function () {
@@ -204,6 +198,11 @@ for (let e = 0; e < allOp.length; e++) {
             }, 3000);
         }
         else {
+            setTimeout(function () {
+                allOp[e].style.color = "red";
+                setTimeout(function () {
+                }, 2000);
+            }, 3000);
         }
     });
 }

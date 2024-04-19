@@ -83,8 +83,7 @@ class TheQuiz{
     private thePlayer:Player;
     private timeSinceQuizStarted:number;
     private stageCounter:number=0;
-    private stagesBoard: Record<number, Stage> = {};    
-    private moneyBoard: Record<number, number> = {};
+    private stagesBoard: Record<number, Stage> = {};
 
     public constructor(thePlayer:Player,timeSinceQuizStarted:number,stageCounter:number){
         this.thePlayer=thePlayer;
@@ -107,15 +106,6 @@ class TheQuiz{
     public addStageToStagesBoard(stageNumber: number, stage: Stage) {
         this.stagesBoard[stageNumber] = stage;
     }
-
-    public addToMoneyBoard(boardNum:number,money: number) {
-        this.moneyBoard[boardNum] = money;
-    }
-
-    public getMoneyBoard(): Record<number, number> {
-        return this.moneyBoard;
-    }
-    
 
     public getStagesBoard(): Record<number, Stage> {
         return this.stagesBoard;
@@ -143,6 +133,7 @@ let indexesOfEasyQuestionsUsed:number[]=[];
 let indexesOfMediumQuestionsUsed:number[]=[];
 let indexesOfHardQuestionsUsed:number[]=[];
 
+
         function loadInTheQuiz(path:string,startingIndexStage:number,endingIndexStage:number,indexesCheckArray:number[]){
             fetch(path)
                 .then(response=>{return response.json();})
@@ -157,8 +148,8 @@ let indexesOfHardQuestionsUsed:number[]=[];
                             let aQuestion=new Question(questionsFetch[theRandom].question,questionsFetch[theRandom].options,questionsFetch[theRandom].correctAnswer,1);
                             let aStage=new Stage(i,moneyBoardFetch[i],false,aQuestion);
                             theQuiz.addStageToStagesBoard(i,aStage);
-                            
                         }
+                        
                     }) 
                 })
         }
@@ -209,7 +200,9 @@ function initializeQuizUi(){
     const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     if (stage!=null){
     you can also do it like that: without using methods...*/
-    console.log(theQuiz.getStagesBoard()[1]["question"]["question"]);
+    for (let i=1;i<Object.keys(theQuiz.getStagesBoard()).length;i++){
+        console.log(Object.keys(theQuiz.getStagesBoard()).length);
+    }    
     theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     //trying with json type...array instead of methods
     theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
@@ -221,7 +214,6 @@ function initializeQuizUi(){
 }
 
 function updateQuestion(){
-    console.log("got in");
     let sc=theQuiz.getStageCounter();
     theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
     theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
@@ -230,6 +222,8 @@ function updateQuestion(){
     theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
 }
 
+
+
 let isOnload:boolean=false;
 
 for(let e=0;e<allOp.length;e++){
@@ -237,22 +231,29 @@ for(let e=0;e<allOp.length;e++){
         if(isOnload){
             console.log("we are on load..plz try later");
             return;
-        }
+        }       
+        isOnload=true;
+        allOp[e].style.color="orange";
+        
         if (allOp[e].textContent==theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()){
-            isOnload=true;
-            allOp[e].style.color="orange";
-                setTimeout( function(){ 
-                    allOp[e].style.color="green";
-                        setTimeout(function(){
-                            theQuiz.increaseStageCounter();
-                            updateQuestion();
-                            allOp[e].style.color="initial";
-                            isOnload=false;
-                        },2000)                    
-                },3000 )
+            setTimeout( function(){ 
+                allOp[e].style.color="green";
+                    setTimeout(function(){
+                        theQuiz.increaseStageCounter();
+                        updateQuestion();
+                        allOp[e].style.color="initial";
+                        isOnload=false;
+                    },2000)                    
+            },3000 )
            
         }else{
+            setTimeout( function(){ 
+                allOp[e].style.color="red";
+                    setTimeout(function(){
+                        
 
+                    },2000)                    
+            },3000 )
         }
         
             
