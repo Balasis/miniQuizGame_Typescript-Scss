@@ -129,12 +129,10 @@ class TheQuiz{
 
 let thePlayer=new Player("John",0);
 let theQuiz=new TheQuiz(thePlayer,0,1);
-let indexesOfEasyQuestionsUsed:number[]=[];
-let indexesOfMediumQuestionsUsed:number[]=[];
-let indexesOfHardQuestionsUsed:number[]=[];
 
-
-        function loadInTheQuiz(path:string,startingIndexStage:number,endingIndexStage:number,indexesCheckArray:number[]){
+        
+        function loadInTheQuiz(path:string,startingIndexStage:number,endingIndexStage:number,dif:difficultyLevel){
+            let indexesOfQuestionsUsed:number[]=[];
             fetch(path)
                 .then(response=>{return response.json();})
                 .then(questionsFetch=>{
@@ -143,8 +141,8 @@ let indexesOfHardQuestionsUsed:number[]=[];
                             let theRandom;
                             do{
                             theRandom=randomizer(1,questionsFetch.length);
-                            }while(indexesCheckArray.indexOf(theRandom)!== -1)
-                            indexesCheckArray.push(theRandom);
+                            }while(indexesOfQuestionsUsed.indexOf(theRandom)!== -1)
+                            indexesOfQuestionsUsed.push(theRandom);
                             let aQuestion=new Question(questionsFetch[theRandom].question,questionsFetch[theRandom].options,questionsFetch[theRandom].correctAnswer,1);
                             let aStage=new Stage(i,moneyBoardFetch[i],false,aQuestion);
                             theQuiz.addStageToStagesBoard(i,aStage);
@@ -157,9 +155,9 @@ let indexesOfHardQuestionsUsed:number[]=[];
 
             
 //Menu functions
-loadInTheQuiz("./build/easyQuestions.json",1,5,indexesOfEasyQuestionsUsed);
-loadInTheQuiz("./build/mediumQuestions.json",6,10,indexesOfMediumQuestionsUsed);
-loadInTheQuiz("./build/hardQuestions.json",11,15,indexesOfHardQuestionsUsed);
+loadInTheQuiz("./build/easyQuestions.json",1,5,1);
+loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
+loadInTheQuiz("./build/hardQuestions.json",11,15,3);
 
 
 
@@ -200,9 +198,10 @@ function initializeQuizUi(){
     const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     if (stage!=null){
     you can also do it like that: without using methods...*/
-    for (let i=1;i<Object.keys(theQuiz.getStagesBoard()).length;i++){
-        console.log(Object.keys(theQuiz.getStagesBoard()).length);
-    }    
+    // for (let i=1;i<Object.keys(theQuiz.getStagesBoard()).length;i++){
+    //     console.log(Object.keys(theQuiz.getStagesBoard()).length);
+    // }    
+    // for( :theQuiz)
     theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     //trying with json type...array instead of methods
     theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
