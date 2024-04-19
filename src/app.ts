@@ -201,7 +201,33 @@ function initializeQuizUi(){
     // for (let i=1;i<Object.keys(theQuiz.getStagesBoard()).length;i++){
     //     console.log(Object.keys(theQuiz.getStagesBoard()).length);
     // }    
-    // for( :theQuiz)
+    // for(  {Object b:theQuiz.getStagesBoard())
+        
+        for (const s in theQuiz.getStagesBoard()) {
+
+            const stageIndexDiv = document.createElement("div");
+            stageIndexDiv.id=`n_${s}`;
+            stageIndexDiv.textContent=s;
+
+            const stageAnsweredTickDiv = document.createElement("div");
+            stageAnsweredTickDiv.id=`c_${s}`;
+            stageAnsweredTickDiv.textContent="";
+
+            const stageMoneyDiv = document.createElement("div");
+            stageMoneyDiv.id=`m_${s}`;
+            stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
+
+            const stageDiv = document.createElement("div");
+            stageDiv.id=`s_${s}`;
+            stageDiv.appendChild(stageIndexDiv);
+            stageDiv.appendChild(stageAnsweredTickDiv);
+            stageDiv.appendChild(stageMoneyDiv);
+            //add orange background to the first one
+            if (s=="1"){
+            stageDiv.style.backgroundColor="orange";
+            }
+            scorePanel.insertBefore(stageDiv,scorePanel.firstChild);
+        } 
     theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     //trying with json type...array instead of methods
     theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
@@ -212,8 +238,13 @@ function initializeQuizUi(){
     // .getQuestion().getTheQuestion()!.toString()
 }
 
-function updateQuestion(){
+function updateStage(){
     let sc=theQuiz.getStageCounter();
+    let indexOfPreviousStageBorderDiv=`s_${sc-1}`;
+    let indexOfNextStageBorderDiv=`s_${sc}`;
+    document.getElementById(indexOfPreviousStageBorderDiv)!.style.backgroundColor="initial";
+    document.getElementById(indexOfNextStageBorderDiv)!.style.backgroundColor="orange";
+  
     theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
     theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
     theOpB.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][1];
@@ -239,7 +270,7 @@ for(let e=0;e<allOp.length;e++){
                 allOp[e].style.color="green";
                     setTimeout(function(){
                         theQuiz.increaseStageCounter();
-                        updateQuestion();
+                        updateStage();
                         allOp[e].style.color="initial";
                         isOnload=false;
                     },2000)                    
@@ -264,5 +295,3 @@ for(let e=0;e<allOp.length;e++){
 preferences?.addEventListener('click',function(){
 
 })
-
-
