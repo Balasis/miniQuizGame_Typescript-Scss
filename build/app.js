@@ -183,14 +183,6 @@ function initializeQuizUi() {
             scorePanel.insertBefore(stageDiv, scorePanel.firstChild);
         }
         domQuestionElements.populateQuestionDomElements(1);
-        // theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
-        // //trying with json type...array instead of methods
-        // theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
-        // theOpB.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][1];
-        // theOpC.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][2];
-        // theOpD.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][3];
-        // }
-        // .getQuestion().getTheQuestion()!.toString()
     });
 }
 function updateStage() {
@@ -210,11 +202,6 @@ function updateStage() {
     //set/reset properties in the current stage
     curStageDom.style.backgroundColor = "orange";
     domQuestionElements.populateQuestionDomElements(sc);
-    // theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
-    // theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
-    // theOpB.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][1];
-    // theOpC.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][2];
-    // theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
 }
 function wonTheGame() {
     console.log("You won the game"); //placeholder;
