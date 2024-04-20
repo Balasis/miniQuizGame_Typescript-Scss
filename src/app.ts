@@ -1,6 +1,9 @@
 const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
-const scorePanel:HTMLElement=document.getElementById("scorePanel")!;
-
+interface ScorePanelElement{
+    scorePanel:HTMLElement;
+    emptyScorePanelElement:()=>void;
+    populateScorePanelElement:()=>void;
+}
 interface QuestionElements{
     theQuestion:HTMLElement;
     theOpA: HTMLElement;
@@ -10,6 +13,45 @@ interface QuestionElements{
     allOp: HTMLCollectionOf<HTMLElement>;
     populateQuestionDomElements:(index:number)=>void;
 }
+
+const domScorePanelElement:ScorePanelElement={
+    scorePanel:document.getElementById("scorePanel")!,
+    emptyScorePanelElement(){
+        while(this.scorePanel.firstChild){
+            this.scorePanel.removeChild(this.scorePanel.firstChild);
+        }  
+    },
+    populateScorePanelElement(){
+        for (const s in theQuiz.getStagesBoard()) {  
+
+            const stageIndexDiv:HTMLElement = document.createElement("div");
+            stageIndexDiv.id=`n_${s}`;
+            stageIndexDiv.textContent=s;
+        
+            const stageAnsweredTickDiv:HTMLElement = document.createElement("div");
+            stageAnsweredTickDiv.id=`c_${s}`;
+            stageAnsweredTickDiv.className="stageAnsweredTick";
+            stageAnsweredTickDiv.textContent="";
+        
+            const stageMoneyDiv:HTMLElement = document.createElement("div");
+            stageMoneyDiv.id=`m_${s}`;
+            stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
+        
+            const stageDiv:HTMLElement = document.createElement("div");
+            stageDiv.id=`s_${s}`;
+            stageDiv.appendChild(stageIndexDiv);
+            stageDiv.appendChild(stageAnsweredTickDiv);
+            stageDiv.appendChild(stageMoneyDiv);
+            //add orange background to the first one
+            if (s=="1"){
+            stageDiv.style.backgroundColor="orange";
+            }
+            this.scorePanel.insertBefore(stageDiv,this.scorePanel.firstChild);
+        } 
+    }
+
+}
+
 
 
 const domQuestionElements:QuestionElements={
@@ -195,39 +237,10 @@ function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStag
 async function initializeQuizUi():Promise<void>{
 await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
 await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
-await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
-    //empty ScorePanel in case we called this function to reset
-    while(scorePanel.firstChild){
-        scorePanel.removeChild(scorePanel.firstChild);
-    }       
-
-    for (const s in theQuiz.getStagesBoard()) {    
-
-        const stageIndexDiv:HTMLElement = document.createElement("div");
-        stageIndexDiv.id=`n_${s}`;
-        stageIndexDiv.textContent=s;
-
-        const stageAnsweredTickDiv:HTMLElement = document.createElement("div");
-        stageAnsweredTickDiv.id=`c_${s}`;
-        stageAnsweredTickDiv.className="stageAnsweredTick";
-        stageAnsweredTickDiv.textContent="";
-
-        const stageMoneyDiv:HTMLElement = document.createElement("div");
-        stageMoneyDiv.id=`m_${s}`;
-        stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
-
-        const stageDiv:HTMLElement = document.createElement("div");
-        stageDiv.id=`s_${s}`;
-        stageDiv.appendChild(stageIndexDiv);
-        stageDiv.appendChild(stageAnsweredTickDiv);
-        stageDiv.appendChild(stageMoneyDiv);
-        //add orange background to the first one
-        if (s=="1"){
-        stageDiv.style.backgroundColor="orange";
-        }
-        scorePanel.insertBefore(stageDiv,scorePanel.firstChild);
-    } 
-    domQuestionElements.populateQuestionDomElements(1);
+await loadInTheQuiz("./build/hardQuestions.json",11,15,3); 
+domScorePanelElement.emptyScorePanelElement();//in Case of reset
+domScorePanelElement.populateScorePanelElement();
+domQuestionElements.populateQuestionDomElements(1);
 }
 
 function updateStage():void{
@@ -263,7 +276,6 @@ async function resetTheGame():Promise<void>{
 thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
 await initializeQuizUi();
-console.log("You reset the game");//placeholder;
 }
 
 function randomizer(min:number,max:number):number{
