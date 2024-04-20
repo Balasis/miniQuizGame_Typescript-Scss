@@ -178,7 +178,7 @@ const allOp=document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLE
 //to continue...oh my this solves a lot of my problems...love it love it love it
 //..it ease the pain from other projects too...
 
-async function initializeQuizUi(){
+async function initializeQuizUi():Promise<void>{
 await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
 await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
 await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
@@ -195,20 +195,20 @@ await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
         
         for (const s in theQuiz.getStagesBoard()) {
 
-            const stageIndexDiv = document.createElement("div");
+            const stageIndexDiv:HTMLElement = document.createElement("div");
             stageIndexDiv.id=`n_${s}`;
             stageIndexDiv.textContent=s;
 
-            const stageAnsweredTickDiv = document.createElement("div");
+            const stageAnsweredTickDiv:HTMLElement = document.createElement("div");
             stageAnsweredTickDiv.id=`c_${s}`;
             stageAnsweredTickDiv.className="stageAnsweredTick";
             stageAnsweredTickDiv.textContent="";
 
-            const stageMoneyDiv = document.createElement("div");
+            const stageMoneyDiv:HTMLElement = document.createElement("div");
             stageMoneyDiv.id=`m_${s}`;
             stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
 
-            const stageDiv = document.createElement("div");
+            const stageDiv:HTMLElement = document.createElement("div");
             stageDiv.id=`s_${s}`;
             stageDiv.appendChild(stageIndexDiv);
             stageDiv.appendChild(stageAnsweredTickDiv);
@@ -229,20 +229,20 @@ await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
     // .getQuestion().getTheQuestion()!.toString()
 }
 
-function updateStage(){
+function updateStage():void{
     //stageCounter has been increased before calling of this function
     //therefore we just reset/set properties to previous stage and to current one
 
     //fetch the current(justIncreased) stageCounter to use it as index
-    let sc=theQuiz.getStageCounter();
+    let sc:number=theQuiz.getStageCounter();
 
     //declaration of previous stage
-    let indexOfPreviousStageBorderDiv=`s_${sc-1}`;
-    let prevStageDom=document.getElementById(indexOfPreviousStageBorderDiv)!;
+    let indexOfPreviousStageBorderDiv:string=`s_${sc-1}`;
+    let prevStageDom:HTMLElement=document.getElementById(indexOfPreviousStageBorderDiv)!;
 
     //declaration of current(just Increased) stage
-    let indexOfNextStageBorderDiv=`s_${sc}`;
-    let curStageDom=document.getElementById(indexOfNextStageBorderDiv)!;
+    let indexOfNextStageBorderDiv:string=`s_${sc}`;
+    let curStageDom:HTMLElement=document.getElementById(indexOfNextStageBorderDiv)!;
 
     //set/reset properties in the previous stage
     prevStageDom.style.backgroundColor="initial";
