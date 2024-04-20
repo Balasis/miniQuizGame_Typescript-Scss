@@ -8,9 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-function randomizer(min, max) {
-    return Math.floor((Math.random() * (max - min)) + min);
-}
+const theQuizUI = document.getElementById("theQuizUI");
+const scorePanel = document.getElementById("scorePanel");
+const domQuestionElements = {
+    theQuestion: document.getElementById("theQuestion"),
+    theOpA: document.getElementById("theOptions__A&B__A"),
+    theOpB: document.getElementById("theOptions__A&B__B"),
+    theOpC: document.getElementById("theOptions__C&D__C"),
+    theOpD: document.getElementById("theOptions__C&D__D"),
+    allOp: document.getElementsByClassName("qOption"),
+    populateQuestionDomElements(index) {
+        this.theQuestion.textContent = theQuiz.getStagesBoard()[index].getQuestion().getTheQuestion();
+        //trying with json type...array instead of methods
+        this.theOpA.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][0];
+        this.theOpB.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][1];
+        this.theOpC.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][2];
+        this.theOpD.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][3];
+    }
+};
 class Player {
     constructor(name, moneyEarned) {
         this.name = name;
@@ -72,6 +87,12 @@ class Stage {
         this.assistUsed = assistedYorN;
     }
 }
+const assistFiftyFifty = {
+    description: "Hides 2 out of 4 incorrect options",
+    modifyTheQuiz() {
+        console.log(theQuizUI);
+    }
+};
 class TheQuiz {
     constructor(thePlayer, timeSinceQuizStarted, stageCounter) {
         this.stageCounter = 0;
@@ -108,8 +129,6 @@ class TheQuiz {
      `;
     }
 }
-let thePlayer = new Player("John", 0);
-let theQuiz = new TheQuiz(thePlayer, 0, 1);
 function loadInTheQuiz(path, startingIndexStage, endingIndexStage, dif) {
     let indexesOfQuestionsUsed = [];
     return fetch(path)
@@ -132,40 +151,15 @@ function loadInTheQuiz(path, startingIndexStage, endingIndexStage, dif) {
         });
     });
 }
-//declarations of Quiz
-const theQuizUI = document.getElementById("theQuizUI");
-const scorePanel = document.getElementById("scorePanel");
-const theQuestion = document.getElementById("theQuestion");
-const theOptions = document.getElementById("theOptions");
-const theOpA = document.getElementById("theOptions__A&B__A");
-const theOpB = document.getElementById("theOptions__A&B__B");
-const theOpC = document.getElementById("theOptions__C&D__C");
-const theOpD = document.getElementById("theOptions__C&D__D");
-//you need to declare this as HTMLCollection so you might set a style...
-//sigh this typescript started to get on my nerves
-//This is a specific usage pattern provided by TypeScript's DOM library, 
-//where you're using a predefined interface (HTMLCollectionOf<T>) with
-// a specific type (HTMLElement) to describe the nature of the collection.
-//While it may look similar to generic type syntax, it's actually a specialized 
-//syntax provided by TypeScript for working with DOM collections.
-const allOp = document.getElementsByClassName("qOption");
-//GOTTA love fetches and promises....sweet promise solve my sychronize issues
-//...async functions wait for the promises of await functions to be returned in order
-//to continue...oh my this solves a lot of my problems...love it love it love it
-//..it ease the pain from other projects too...
 function initializeQuizUi() {
     return __awaiter(this, void 0, void 0, function* () {
         yield loadInTheQuiz("./build/easyQuestions.json", 1, 5, 1);
         yield loadInTheQuiz("./build/mediumQuestions.json", 6, 10, 2);
         yield loadInTheQuiz("./build/hardQuestions.json", 11, 15, 3);
-        /*well if you try to have different types ,typescript wont make it easy for you
-        const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
-        if (stage!=null){
-        you can also do it like that: without using methods...*/
-        // for (let i=1;i<Object.keys(theQuiz.getStagesBoard()).length;i++){
-        //     console.log(Object.keys(theQuiz.getStagesBoard()).length);
-        // }    
-        // for(  {Object b:theQuiz.getStagesBoard())
+        //empty ScorePanel in case we called this function to reset
+        while (scorePanel.firstChild) {
+            scorePanel.removeChild(scorePanel.firstChild);
+        }
         for (const s in theQuiz.getStagesBoard()) {
             const stageIndexDiv = document.createElement("div");
             stageIndexDiv.id = `n_${s}`;
@@ -188,12 +182,13 @@ function initializeQuizUi() {
             }
             scorePanel.insertBefore(stageDiv, scorePanel.firstChild);
         }
-        theQuestion.textContent = theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
-        //trying with json type...array instead of methods
-        theOpA.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][0];
-        theOpB.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][1];
-        theOpC.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][2];
-        theOpD.textContent = theQuiz.getStagesBoard()[1]["question"]["options"][3];
+        domQuestionElements.populateQuestionDomElements(1);
+        // theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+        // //trying with json type...array instead of methods
+        // theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
+        // theOpB.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][1];
+        // theOpC.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][2];
+        // theOpD.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][3];
         // }
         // .getQuestion().getTheQuestion()!.toString()
     });
@@ -214,44 +209,12 @@ function updateStage() {
     prevStageDom.querySelector(".stageAnsweredTick").textContent = "*";
     //set/reset properties in the current stage
     curStageDom.style.backgroundColor = "orange";
-    theQuestion.textContent = theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
-    theOpA.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][0];
-    theOpB.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][1];
-    theOpC.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][2];
-    theOpD.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][3];
-}
-let isOnload = false;
-for (let e = 0; e < allOp.length; e++) {
-    allOp[e].addEventListener('click', function () {
-        if (isOnload) {
-            console.log("we are on load..plz try later");
-            return;
-        }
-        isOnload = true;
-        allOp[e].style.color = "orange";
-        if (allOp[e].textContent == theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()) {
-            setTimeout(function () {
-                allOp[e].style.color = "green";
-                setTimeout(function () {
-                    if (theQuiz.getStageCounter() + 1 >= 16) {
-                        wonTheGame();
-                        return;
-                    }
-                    theQuiz.increaseStageCounter();
-                    updateStage();
-                    allOp[e].style.color = "initial";
-                    isOnload = false;
-                }, 2000);
-            }, 3000);
-        }
-        else {
-            setTimeout(function () {
-                allOp[e].style.color = "red";
-                setTimeout(function () {
-                }, 2000);
-            }, 3000);
-        }
-    });
+    domQuestionElements.populateQuestionDomElements(sc);
+    // theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
+    // theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
+    // theOpB.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][1];
+    // theOpC.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][2];
+    // theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
 }
 function wonTheGame() {
     console.log("You won the game"); //placeholder;
@@ -262,6 +225,44 @@ function resetTheGame() {
         theQuiz = new TheQuiz(thePlayer, 0, 1);
         yield initializeQuizUi();
         console.log("You reset the game"); //placeholder;
+    });
+}
+function randomizer(min, max) {
+    return Math.floor((Math.random() * (max - min)) + min);
+}
+let thePlayer = new Player("John", 0);
+let theQuiz = new TheQuiz(thePlayer, 0, 1);
+let isOnload = false;
+for (let e = 0; e < domQuestionElements.allOp.length; e++) {
+    domQuestionElements.allOp[e].addEventListener('click', function () {
+        if (isOnload) {
+            console.log("we are on load..plz try later");
+            return;
+        }
+        isOnload = true;
+        domQuestionElements.allOp[e].style.color = "orange";
+        if (domQuestionElements.allOp[e].textContent == theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()) {
+            setTimeout(function () {
+                domQuestionElements.allOp[e].style.color = "green";
+                setTimeout(function () {
+                    if (theQuiz.getStageCounter() + 1 >= 16) {
+                        wonTheGame();
+                        return;
+                    }
+                    theQuiz.increaseStageCounter();
+                    updateStage();
+                    domQuestionElements.allOp[e].style.color = "initial";
+                    isOnload = false;
+                }, 2000);
+            }, 3000);
+        }
+        else {
+            setTimeout(function () {
+                domQuestionElements.allOp[e].style.color = "red";
+                setTimeout(function () {
+                }, 2000);
+            }, 3000);
+        }
     });
 }
 initializeQuizUi();

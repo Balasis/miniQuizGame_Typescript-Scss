@@ -1,9 +1,37 @@
-//Some utilities: types for shortcuts and functions for random numbers e.t.c
-    type SorN=string|number;//trying to save some space
+const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
+const scorePanel:HTMLElement=document.getElementById("scorePanel")!;
 
-    function randomizer(min:number,max:number):number{
-    return Math.floor((Math.random() * (max-min))+min);
+interface QuestionElements{
+    theQuestion:HTMLElement;
+    theOpA: HTMLElement;
+    theOpB: HTMLElement;
+    theOpC: HTMLElement;
+    theOpD: HTMLElement;
+    allOp: HTMLCollectionOf<HTMLElement>;
+    populateQuestionDomElements:(index:number)=>void;
+}
+
+
+const domQuestionElements:QuestionElements={
+    theQuestion:document.getElementById("theQuestion")!,
+    theOpA:document.getElementById("theOptions__A&B__A")!,
+    theOpB:document.getElementById("theOptions__A&B__B")!,
+    theOpC:document.getElementById("theOptions__C&D__C")!,
+    theOpD:document.getElementById("theOptions__C&D__D")!,
+    allOp:document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLElement>,
+
+    populateQuestionDomElements(index:number){
+        this.theQuestion.textContent=theQuiz.getStagesBoard()[index].getQuestion().getTheQuestion();
+        //trying with json type...array instead of methods
+        this.theOpA.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][0];
+        this.theOpB.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][1];
+        this.theOpC.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][2];
+        this.theOpD.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][3];
     }
+
+
+}
+
 
 
 class Player{
@@ -80,6 +108,18 @@ class Stage{
 }
 
 
+interface Assist{
+    description:string;
+    modifyTheQuiz:()=>void;
+}
+
+const assistFiftyFifty:Assist={
+    description:"Hides 2 out of 4 incorrect options";
+    modifyTheQuiz(){
+        console.log(theQuizUI);
+    }
+}
+
 class TheQuiz{
     private thePlayer:Player;
     private timeSinceQuizStarted:number;
@@ -128,103 +168,73 @@ class TheQuiz{
     }
 }
 
-let thePlayer:Player=new Player("John",0);
-let theQuiz:TheQuiz=new TheQuiz(thePlayer,0,1);
         
-        function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStage: number, dif: difficultyLevel):Promise<void> {
-            let indexesOfQuestionsUsed: number[] = [];
-            return fetch(path)
-                .then(response => { return response.json(); })
-                .then(questionsFetch => {
-                    return fetch("./build/moneyBoard.json")
-                        .then(responsee => { return responsee.json(); })
-                        .then(moneyBoardFetch => {
-                            for (let i = startingIndexStage; i <= endingIndexStage; i++) {
-                                let theRandom;
-                                do {
-                                    theRandom = randomizer(1, questionsFetch.length);
-                                } while (indexesOfQuestionsUsed.indexOf(theRandom) !== -1)
-                                indexesOfQuestionsUsed.push(theRandom);
-                                let aQuestion = new Question(questionsFetch[theRandom].question, questionsFetch[theRandom].options, questionsFetch[theRandom].correctAnswer, 1);
-                                let aStage = new Stage(i, moneyBoardFetch[i], false, aQuestion);
-                                theQuiz.addStageToStagesBoard(i, aStage);
-                            }
-                            console.log("loadInTheQuiz");
-                        });
+function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStage: number, dif: difficultyLevel):Promise<void> {
+    let indexesOfQuestionsUsed: number[] = [];
+    return fetch(path)
+        .then(response => { return response.json(); })
+        .then(questionsFetch => {
+            return fetch("./build/moneyBoard.json")
+                .then(responsee => { return responsee.json(); })
+                .then(moneyBoardFetch => {
+                    for (let i = startingIndexStage; i <= endingIndexStage; i++) {
+                        let theRandom;
+                        do {
+                            theRandom = randomizer(1, questionsFetch.length);
+                        } while (indexesOfQuestionsUsed.indexOf(theRandom) !== -1)
+                        indexesOfQuestionsUsed.push(theRandom);
+                        let aQuestion = new Question(questionsFetch[theRandom].question, questionsFetch[theRandom].options, questionsFetch[theRandom].correctAnswer, 1);
+                        let aStage = new Stage(i, moneyBoardFetch[i], false, aQuestion);
+                        theQuiz.addStageToStagesBoard(i, aStage);
+                    }
+                    console.log("loadInTheQuiz");
                 });
-        }
-        
-
-//declarations of Quiz
-const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
-const scorePanel:HTMLElement=document.getElementById("scorePanel")!;
-const theQuestion:HTMLElement=document.getElementById("theQuestion")!;
-const theOptions:HTMLElement=document.getElementById("theOptions")!;
-const theOpA:HTMLElement=document.getElementById("theOptions__A&B__A")!;
-const theOpB:HTMLElement=document.getElementById("theOptions__A&B__B")!;
-const theOpC:HTMLElement=document.getElementById("theOptions__C&D__C")!;
-const theOpD:HTMLElement=document.getElementById("theOptions__C&D__D")!;
-//you need to declare this as HTMLCollection so you might set a style...
-//sigh this typescript started to get on my nerves
-//This is a specific usage pattern provided by TypeScript's DOM library, 
-//where you're using a predefined interface (HTMLCollectionOf<T>) with
-// a specific type (HTMLElement) to describe the nature of the collection.
-//While it may look similar to generic type syntax, it's actually a specialized 
-//syntax provided by TypeScript for working with DOM collections.
-const allOp=document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLElement>;
-
-//GOTTA love fetches and promises....sweet promise solve my sychronize issues
-//...async functions wait for the promises of await functions to be returned in order
-//to continue...oh my this solves a lot of my problems...love it love it love it
-//..it ease the pain from other projects too...
+        });
+}
 
 async function initializeQuizUi():Promise<void>{
 await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
 await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
 await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
+    //empty ScorePanel in case we called this function to reset
+    while(scorePanel.firstChild){
+        scorePanel.removeChild(scorePanel.firstChild);
+    }       
 
+    for (const s in theQuiz.getStagesBoard()) {    
 
-    /*well if you try to have different types ,typescript wont make it easy for you
-    const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
-    if (stage!=null){
-    you can also do it like that: without using methods...*/
-    // for (let i=1;i<Object.keys(theQuiz.getStagesBoard()).length;i++){
-    //     console.log(Object.keys(theQuiz.getStagesBoard()).length);
-    // }    
-    // for(  {Object b:theQuiz.getStagesBoard())
-        
-        for (const s in theQuiz.getStagesBoard()) {
+        const stageIndexDiv:HTMLElement = document.createElement("div");
+        stageIndexDiv.id=`n_${s}`;
+        stageIndexDiv.textContent=s;
 
-            const stageIndexDiv:HTMLElement = document.createElement("div");
-            stageIndexDiv.id=`n_${s}`;
-            stageIndexDiv.textContent=s;
+        const stageAnsweredTickDiv:HTMLElement = document.createElement("div");
+        stageAnsweredTickDiv.id=`c_${s}`;
+        stageAnsweredTickDiv.className="stageAnsweredTick";
+        stageAnsweredTickDiv.textContent="";
 
-            const stageAnsweredTickDiv:HTMLElement = document.createElement("div");
-            stageAnsweredTickDiv.id=`c_${s}`;
-            stageAnsweredTickDiv.className="stageAnsweredTick";
-            stageAnsweredTickDiv.textContent="";
+        const stageMoneyDiv:HTMLElement = document.createElement("div");
+        stageMoneyDiv.id=`m_${s}`;
+        stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
 
-            const stageMoneyDiv:HTMLElement = document.createElement("div");
-            stageMoneyDiv.id=`m_${s}`;
-            stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
+        const stageDiv:HTMLElement = document.createElement("div");
+        stageDiv.id=`s_${s}`;
+        stageDiv.appendChild(stageIndexDiv);
+        stageDiv.appendChild(stageAnsweredTickDiv);
+        stageDiv.appendChild(stageMoneyDiv);
+        //add orange background to the first one
+        if (s=="1"){
+        stageDiv.style.backgroundColor="orange";
+        }
+        scorePanel.insertBefore(stageDiv,scorePanel.firstChild);
+    } 
+    domQuestionElements.populateQuestionDomElements(1);
 
-            const stageDiv:HTMLElement = document.createElement("div");
-            stageDiv.id=`s_${s}`;
-            stageDiv.appendChild(stageIndexDiv);
-            stageDiv.appendChild(stageAnsweredTickDiv);
-            stageDiv.appendChild(stageMoneyDiv);
-            //add orange background to the first one
-            if (s=="1"){
-            stageDiv.style.backgroundColor="orange";
-            }
-            scorePanel.insertBefore(stageDiv,scorePanel.firstChild);
-        } 
-    theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
-    //trying with json type...array instead of methods
-    theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
-    theOpB.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][1];
-    theOpC.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][2];
-    theOpD.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][3];
+    // theQuestion.textContent=theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
+    // //trying with json type...array instead of methods
+    // theOpA.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][0];
+    // theOpB.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][1];
+    // theOpC.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][2];
+    // theOpD.textContent=theQuiz.getStagesBoard()[1]["question"]["options"][3];
     // }
     // .getQuestion().getTheQuestion()!.toString()
 }
@@ -250,53 +260,12 @@ function updateStage():void{
 
     //set/reset properties in the current stage
     curStageDom.style.backgroundColor="orange";
-  
-    theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
-    theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
-    theOpB.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][1];
-    theOpC.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][2];
-    theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
-}
-
-
-
-let isOnload:boolean=false;
-
-for(let e=0;e<allOp.length;e++){
-
-    allOp[e].addEventListener('click',function(){
-        if(isOnload){
-            console.log("we are on load..plz try later");
-            return;
-        }       
-        isOnload=true;
-        allOp[e].style.color="orange";
-        
-        if (allOp[e].textContent==theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()){
-            setTimeout( function(){ 
-                allOp[e].style.color="green";
-                    setTimeout(function(){
-                        if (theQuiz.getStageCounter() + 1 >=16){
-                            wonTheGame();
-                            return;
-                        }
-                        theQuiz.increaseStageCounter();
-                        updateStage();
-                        allOp[e].style.color="initial";
-                        isOnload=false;
-                    },2000)                    
-            },3000 )
-           
-        }else{
-            setTimeout( function(){ 
-                allOp[e].style.color="red";
-                    setTimeout(function(){
-                        
-
-                    },2000)                    
-            },3000 )
-        }         
-    })
+    domQuestionElements.populateQuestionDomElements(sc);
+    // theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
+    // theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
+    // theOpB.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][1];
+    // theOpC.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][2];
+    // theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
 }
 
 function wonTheGame():void{
@@ -309,6 +278,57 @@ thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
 await initializeQuizUi();
 console.log("You reset the game");//placeholder;
+}
+
+function randomizer(min:number,max:number):number{
+    return Math.floor((Math.random() * (max-min))+min);
+}
+
+
+
+
+
+
+
+let thePlayer:Player=new Player("John",0);
+let theQuiz:TheQuiz=new TheQuiz(thePlayer,0,1);
+let isOnload:boolean=false;
+
+for(let e=0;e<domQuestionElements.allOp.length;e++){
+
+    domQuestionElements.allOp[e].addEventListener('click',function(){
+        if(isOnload){
+            console.log("we are on load..plz try later");
+            return;
+        }       
+        isOnload=true;
+        domQuestionElements.allOp[e].style.color="orange";
+        
+        if (domQuestionElements.allOp[e].textContent==theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()){
+            setTimeout( function(){ 
+                domQuestionElements.allOp[e].style.color="green";
+                    setTimeout(function(){
+                        if (theQuiz.getStageCounter() + 1 >=16){
+                            wonTheGame();
+                            return;
+                        }
+                        theQuiz.increaseStageCounter();
+                        updateStage();
+                        domQuestionElements.allOp[e].style.color="initial";
+                        isOnload=false;
+                    },2000)                    
+            },3000 )
+           
+        }else{
+            setTimeout( function(){ 
+                domQuestionElements.allOp[e].style.color="red";
+                    setTimeout(function(){
+                        
+
+                    },2000)                    
+            },3000 )
+        }         
+    })
 }
 
 
