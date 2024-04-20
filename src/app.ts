@@ -301,6 +301,7 @@ for(let e=0;e<allOp.length;e++){
 
 function wonTheGame():void{
     console.log("You won the game");//placeholder;
+    
 }
 
 async function resetTheGame():Promise<void>{    
