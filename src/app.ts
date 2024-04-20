@@ -306,7 +306,8 @@ function wonTheGame():void{
 async function resetTheGame():Promise<void>{    
 thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
-initializeQuizUi();
+await initializeQuizUi();
+console.log("You reset the game");//placeholder;
 }
 
 

@@ -260,7 +260,8 @@ function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
-        initializeQuizUi();
+        yield initializeQuizUi();
+        console.log("You reset the game"); //placeholder;
     });
 }
 initializeQuizUi();
