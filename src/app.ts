@@ -156,15 +156,14 @@ let theQuiz=new TheQuiz(thePlayer,0,1);
         
 
 //declarations of Quiz
-const theQuizUI=document.getElementById("theQuizUI")!;
-const scorePanel=document.getElementById("scorePanel")!;
-
-const theQuestion=document.getElementById("theQuestion")!;
-const theOptions=document.getElementById("theOptions")!;
-const theOpA=document.getElementById("theOptions__A&B__A")!;
-const theOpB=document.getElementById("theOptions__A&B__B")!;
-const theOpC=document.getElementById("theOptions__C&D__C")!;
-const theOpD=document.getElementById("theOptions__C&D__D")!;
+const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
+const scorePanel:HTMLElement=document.getElementById("scorePanel")!;
+const theQuestion:HTMLElement=document.getElementById("theQuestion")!;
+const theOptions:HTMLElement=document.getElementById("theOptions")!;
+const theOpA:HTMLElement=document.getElementById("theOptions__A&B__A")!;
+const theOpB:HTMLElement=document.getElementById("theOptions__A&B__B")!;
+const theOpC:HTMLElement=document.getElementById("theOptions__C&D__C")!;
+const theOpD:HTMLElement=document.getElementById("theOptions__C&D__D")!;
 //you need to declare this as HTMLCollection so you might set a style...
 //sigh this typescript started to get on my nerves
 //This is a specific usage pattern provided by TypeScript's DOM library, 
