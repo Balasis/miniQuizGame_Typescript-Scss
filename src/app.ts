@@ -32,11 +32,7 @@ class Player{
     }
 }
 
-enum difficultyLevel {
-    Easy = 1,
-    Medium = 2,
-    Hard = 3
-}
+type difficultyLevel=1|2|3;
 class Question{    
     private readonly difficulty:difficultyLevel;
     public constructor(private readonly question:string,private readonly options: string[],private readonly correctAnswer:string,difficulty:difficultyLevel){
