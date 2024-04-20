@@ -154,17 +154,6 @@ let theQuiz=new TheQuiz(thePlayer,0,1);
                 });
         }
         
-       
-
-
-
-
-//declarations of Menu
-const startingMenu=document.getElementById("startingMenu")!;
-const newGame=document.getElementById("newGame")!;
-const preferences=document.getElementById("preferences");//omited the "!" to check"?"
-const aboutUs=document.getElementById("aboutUs")!;
-
 
 //declarations of Quiz
 const theQuizUI=document.getElementById("theQuizUI")!;
@@ -184,11 +173,6 @@ const theOpD=document.getElementById("theOptions__C&D__D")!;
 //While it may look similar to generic type syntax, it's actually a specialized 
 //syntax provided by TypeScript for working with DOM collections.
 const allOp=document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLElement>;
-//by placing ! in the end you ensure the typescript that it will find it for sure
-
-newGame.addEventListener('click',function(){
-    initializeQuizUi();
-})
 
 //GOTTA love fetches and promises....sweet promise solve my sychronize issues
 //...async functions wait for the promises of await functions to be returned in order
@@ -317,14 +301,8 @@ for(let e=0;e<allOp.length;e++){
     })
 }
 
-
-//use of Optional Chaining (?.) so if its null or undefined it will stop there
-preferences?.addEventListener('click',function(){
-
-})
-
 function wonTheGame():void{
-    console.log("you wont the game");//placeholder;
+    console.log("You won the game");//placeholder;
 }
 
 async function resetTheGame():Promise<void>{    
@@ -335,3 +313,8 @@ await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
 await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
 initializeQuizUi();
 }
+
+
+
+
+initializeQuizUi();
