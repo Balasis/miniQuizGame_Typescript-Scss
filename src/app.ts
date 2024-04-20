@@ -128,8 +128,8 @@ class TheQuiz{
     }
 }
 
-let thePlayer=new Player("John",0);
-let theQuiz=new TheQuiz(thePlayer,0,1);
+let thePlayer:Player=new Player("John",0);
+let theQuiz:TheQuiz=new TheQuiz(thePlayer,0,1);
         
         function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStage: number, dif: difficultyLevel):Promise<void> {
             let indexesOfQuestionsUsed: number[] = [];
@@ -263,6 +263,7 @@ function updateStage():void{
 let isOnload:boolean=false;
 
 for(let e=0;e<allOp.length;e++){
+
     allOp[e].addEventListener('click',function(){
         if(isOnload){
             console.log("we are on load..plz try later");
@@ -305,9 +306,6 @@ function wonTheGame():void{
 async function resetTheGame():Promise<void>{    
 thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
-await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
-await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
-await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
 initializeQuizUi();
 }
 

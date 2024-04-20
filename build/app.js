@@ -260,9 +260,6 @@ function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
-        yield loadInTheQuiz("./build/easyQuestions.json", 1, 5, 1);
-        yield loadInTheQuiz("./build/mediumQuestions.json", 6, 10, 2);
-        yield loadInTheQuiz("./build/hardQuestions.json", 11, 15, 3);
         initializeQuizUi();
     });
 }
