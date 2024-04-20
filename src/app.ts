@@ -131,33 +131,31 @@ class TheQuiz{
 let thePlayer=new Player("John",0);
 let theQuiz=new TheQuiz(thePlayer,0,1);
         
-        function loadInTheQuiz(path:string,startingIndexStage:number,endingIndexStage:number,dif:difficultyLevel){
-            let indexesOfQuestionsUsed:number[]=[];
-            fetch(path)
-                .then(response=>{return response.json();})
-                .then(questionsFetch=>{
-                    fetch("./build/moneyBoard.json").then(responsee=>{return responsee.json();}).then(moneyBoardFetch=>{
-                        for(let i=startingIndexStage;i<=endingIndexStage;i++){
-                            let theRandom;
-                            do{
-                            theRandom=randomizer(1,questionsFetch.length);
-                            }while(indexesOfQuestionsUsed.indexOf(theRandom)!== -1)
-                            indexesOfQuestionsUsed.push(theRandom);
-                            let aQuestion=new Question(questionsFetch[theRandom].question,questionsFetch[theRandom].options,questionsFetch[theRandom].correctAnswer,1);
-                            let aStage=new Stage(i,moneyBoardFetch[i],false,aQuestion);
-                            theQuiz.addStageToStagesBoard(i,aStage);
-                        }
-                        
-                    }) 
-                })
+        function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStage: number, dif: difficultyLevel):Promise<void> {
+            let indexesOfQuestionsUsed: number[] = [];
+            return fetch(path)
+                .then(response => { return response.json(); })
+                .then(questionsFetch => {
+                    return fetch("./build/moneyBoard.json")
+                        .then(responsee => { return responsee.json(); })
+                        .then(moneyBoardFetch => {
+                            for (let i = startingIndexStage; i <= endingIndexStage; i++) {
+                                let theRandom;
+                                do {
+                                    theRandom = randomizer(1, questionsFetch.length);
+                                } while (indexesOfQuestionsUsed.indexOf(theRandom) !== -1)
+                                indexesOfQuestionsUsed.push(theRandom);
+                                let aQuestion = new Question(questionsFetch[theRandom].question, questionsFetch[theRandom].options, questionsFetch[theRandom].correctAnswer, 1);
+                                let aStage = new Stage(i, moneyBoardFetch[i], false, aQuestion);
+                                theQuiz.addStageToStagesBoard(i, aStage);
+                            }
+                            console.log("loadInTheQuiz");
+                        });
+                });
         }
+        
+       
 
-
-            
-//Menu functions
-loadInTheQuiz("./build/easyQuestions.json",1,5,1);
-loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
-loadInTheQuiz("./build/hardQuestions.json",11,15,3);
 
 
 
@@ -189,12 +187,21 @@ const allOp=document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLE
 //by placing ! in the end you ensure the typescript that it will find it for sure
 
 newGame.addEventListener('click',function(){
-
     initializeQuizUi();
 })
 
-function initializeQuizUi(){
-    /*well if you try to have different types typescript wont make it easy for you
+//GOTTA love fetches and promises....sweet promise solve my sychronize issues
+//...async functions wait for the promises of await functions to be returned in order
+//to continue...oh my this solves a lot of my problems...love it love it love it
+//..it ease the pain from other projects too...
+
+async function initializeQuizUi(){
+await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
+await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
+await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
+
+
+    /*well if you try to have different types ,typescript wont make it easy for you
     const stage =theQuiz.getStagesBoard()[1].getQuestion().getTheQuestion();
     if (stage!=null){
     you can also do it like that: without using methods...*/
@@ -211,6 +218,7 @@ function initializeQuizUi(){
 
             const stageAnsweredTickDiv = document.createElement("div");
             stageAnsweredTickDiv.id=`c_${s}`;
+            stageAnsweredTickDiv.className="stageAnsweredTick";
             stageAnsweredTickDiv.textContent="";
 
             const stageMoneyDiv = document.createElement("div");
@@ -239,11 +247,26 @@ function initializeQuizUi(){
 }
 
 function updateStage(){
+    //stageCounter has been increased before calling of this function
+    //therefore we just reset/set properties to previous stage and to current one
+
+    //fetch the current(justIncreased) stageCounter to use it as index
     let sc=theQuiz.getStageCounter();
+
+    //declaration of previous stage
     let indexOfPreviousStageBorderDiv=`s_${sc-1}`;
+    let prevStageDom=document.getElementById(indexOfPreviousStageBorderDiv)!;
+
+    //declaration of current(just Increased) stage
     let indexOfNextStageBorderDiv=`s_${sc}`;
-    document.getElementById(indexOfPreviousStageBorderDiv)!.style.backgroundColor="initial";
-    document.getElementById(indexOfNextStageBorderDiv)!.style.backgroundColor="orange";
+    let curStageDom=document.getElementById(indexOfNextStageBorderDiv)!;
+
+    //set/reset properties in the previous stage
+    prevStageDom.style.backgroundColor="initial";
+    prevStageDom.querySelector(".stageAnsweredTick")!.textContent="*";
+
+    //set/reset properties in the current stage
+    curStageDom.style.backgroundColor="orange";
   
     theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
     theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
@@ -269,6 +292,10 @@ for(let e=0;e<allOp.length;e++){
             setTimeout( function(){ 
                 allOp[e].style.color="green";
                     setTimeout(function(){
+                        if (theQuiz.getStageCounter() + 1 >=16){
+                            wonTheGame();
+                            return;
+                        }
                         theQuiz.increaseStageCounter();
                         updateStage();
                         allOp[e].style.color="initial";
@@ -295,3 +322,16 @@ for(let e=0;e<allOp.length;e++){
 preferences?.addEventListener('click',function(){
 
 })
+
+function wonTheGame():void{
+    console.log("you wont the game");//placeholder;
+}
+
+async function resetTheGame():Promise<void>{    
+thePlayer=new Player("John",0);
+theQuiz=new TheQuiz(thePlayer,0,1);
+await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
+await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
+await loadInTheQuiz("./build/hardQuestions.json",11,15,3);
+initializeQuizUi();
+}
