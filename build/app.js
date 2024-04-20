@@ -32,6 +32,12 @@ class Player {
         return `Player name: ${this.name.toString()} holds so far ${this.moneyEarned}`;
     }
 }
+var difficultyLevel;
+(function (difficultyLevel) {
+    difficultyLevel[difficultyLevel["Easy"] = 1] = "Easy";
+    difficultyLevel[difficultyLevel["Medium"] = 2] = "Medium";
+    difficultyLevel[difficultyLevel["Hard"] = 3] = "Hard";
+})(difficultyLevel || (difficultyLevel = {}));
 class Question {
     constructor(question, options, correctAnswer, difficulty) {
         this.question = question;
