@@ -141,7 +141,7 @@ class Player{
     }
 }
 
-type difficultyLevel=1|2|3;
+type difficultyLevel=1|2|3|4|5|6|7|8;
 class Question{    
     private readonly difficulty:difficultyLevel;
     public constructor(private readonly question:string,private readonly options: string[],private readonly correctAnswer:string,difficulty:difficultyLevel){
@@ -318,9 +318,15 @@ function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStag
 }
 
 async function initializeQuizUi():Promise<void>{
-await loadInTheQuiz("./build/easyQuestions.json",1,5,1);
-await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
-await loadInTheQuiz("./build/hardQuestions.json",11,15,3); 
+await loadInTheQuiz("./build/jsons/stageOnePartA.json",1,2,1);
+await loadInTheQuiz("./build/jsons/stageOnePartB.json",3,4,2);
+await loadInTheQuiz("./build/jsons/stageTwoPartA.json",5,6,3);
+await loadInTheQuiz("./build/jsons/stageTwoPartB.json",7,8,4);
+await loadInTheQuiz("./build/jsons/stageThreePartA.json",9,10,5);
+await loadInTheQuiz("./build/jsons/stageThreePartB.json",11,12,6);
+await loadInTheQuiz("./build/jsons/masters.json",13,14,7);
+await loadInTheQuiz("./build/jsons/masterDrEfremidis.json",9,15,8);
+
 domScorePanelElement.emptyScorePanelElement();//in Case of reset
 domScorePanelElement.populateScorePanelElement();
 domQuestionElements.populateQuestionDomElements();

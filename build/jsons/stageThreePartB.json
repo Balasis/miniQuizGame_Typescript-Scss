@@ -1,0 +1,42 @@
+[
+    {
+    "question": "What is refactoring in software engineering?",
+    "options": ["The process of restructuring existing computer code without changing its external behavior", "A data science technique", "A networking computing protocol", "A strategy for innovation and entrepreneurship in IT"],
+    "correctAnswer": "The process of restructuring existing computer code without changing its external behavior"
+    },
+    {
+    "question": "What is data preprocessing in data science?",
+    "options": ["The initial step in data analysis where raw data is transformed into a more usable format", "A software engineering methodology", "A concept in network computing", "A strategy for IT in business"],
+    "correctAnswer": "The initial step in data analysis where raw data is transformed into a more usable format"
+    },
+    {
+    "question": "What is DNS (Domain Name System) in network computing?",
+    "options": ["A hierarchical decentralized naming system for computers, services, or other resources connected to the internet", "A method for cloud computing", "A principle of social media networks", "A technique for IT strategy in business"],
+    "correctAnswer": "A hierarchical decentralized naming system for computers, services, or other resources connected to the internet"
+    },
+    {
+    "question": "What is elasticity in cloud computing?",
+    "options": ["The ability to scale computing resources up or down dynamically as demand changes", "A data science technique", "A method for social media analysis", "An aspect of e-commerce"],
+    "correctAnswer": "The ability to scale computing resources up or down dynamically as demand changes"
+    },
+    {
+    "question": "What is lean startup methodology in IT entrepreneurship?",
+    "options": ["An approach for developing businesses and products based on validated learning, experimentation, and iterative product releases", "A data science algorithm", "A networking strategy", "A component of IT strategy in business"],
+    "correctAnswer": "An approach for developing businesses and products based on validated learning, experimentation, and iterative product releases"
+    },
+    {
+    "question": "What is viral marketing in social media?",
+    "options": ["A marketing technique that uses pre-existing social networks to promote products or services", "A software engineering approach", "A network computing protocol", "A model for e-commerce"],
+    "correctAnswer": "A marketing technique that uses pre-existing social networks to promote products or services"
+    },
+    {
+    "question": "What is secure online transaction processing in e-commerce?",
+    "options": ["The protection of electronic transactions to ensure confidentiality, integrity, and authenticity", "A technique in data science", "A networking computing concept", "A strategy for IT entrepreneurship"],
+    "correctAnswer": "The protection of electronic transactions to ensure confidentiality, integrity, and authenticity"
+    },
+    {
+    "question": "What is strategic alignment in IT management?",
+    "options": ["Ensuring that IT goals and objectives support the overall business strategy", "A software engineering principle", "A data science methodology", "A social media strategy"],
+    "correctAnswer": "Ensuring that IT goals and objectives support the overall business strategy"
+    }
+]

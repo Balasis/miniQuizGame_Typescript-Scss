@@ -1,0 +1,61 @@
+[
+    {   
+        "question": "What does HTML stand for?",
+        "options": ["Hypertext Markup Language", "Hyperlink and Text Markup Language", "Hyperlink Text Markup Language", "Hyper Transfer Markup Language"],
+        "correctAnswer": "Hypertext Markup Language"
+      },
+      {
+        "question": "What is recursion?",
+        "options": ["A loop that repeats a block of code", "A function that calls itself", "An error in the code", "A data structure"],
+        "correctAnswer": "A function that calls itself"
+      },
+      {
+        "question": "What is the purpose of UML (Unified Modeling Language) diagrams?",
+        "options": ["To visualize the system architecture", "To generate code automatically", "To test software applications", "To execute programs"],
+        "correctAnswer": "To visualize the system architecture"
+      },
+      {
+        "question": "What is the value of π (pi) approximately equal to?",
+        "options": ["3.14", "3.1416", "3.14159", "3.14159265"],
+        "correctAnswer": "3.14159"
+      },
+      {
+        "question": "What is the purpose of a CPU cache?",
+        "options": ["To store data permanently", "To speed up data access between CPU and RAM", "To perform arithmetic calculations", "To manage network connections"],
+        "correctAnswer": "To speed up data access between CPU and RAM"
+      },
+      {
+        "question": "What is the difference between 'affect' and 'effect'?",
+        "options": ["Affect is a verb, effect is a noun", "Affect is a noun, effect is a verb", "Both are nouns", "Both are verbs"],
+        "correctAnswer": "Affect is a verb, effect is a noun"
+      },{
+        "question": "What is the purpose of the 'doctype' declaration in HTML?",
+        "options": ["To specify the version of HTML being used", "To define the document type and syntax", "To link to external stylesheets", "To set the character encoding of the document"],
+        "correctAnswer": "To define the document type and syntax"
+      },
+      {
+        "question": "What is the time complexity of the merge sort algorithm?",
+        "options": ["O(n)", "O(log n)", "O(n log n)", "O(n^2)"],
+        "correctAnswer": "O(n log n)"
+      },
+      {
+        "question": "What is encapsulation in object-oriented programming?",
+        "options": ["Hiding the implementation details of an object and only exposing the necessary features", "Creating a new class based on an existing class", "Storing multiple values in a single variable", "Extending the functionality of a class"],
+        "correctAnswer": "Hiding the implementation details of an object and only exposing the necessary features"
+      },
+      {
+        "question": "What is the fundamental theorem of calculus?",
+        "options": ["∫f(x) dx = F(x) + C", "d/dx ∫f(x) dx = f(x)", "lim (x->∞) f(x) = L", "∑f(x) = n"],
+        "correctAnswer": "∫f(x) dx = F(x) + C"
+      },
+      {
+        "question": "What is pipelining in computer architecture?",
+        "options": ["A technique to improve CPU performance by allowing multiple instructions to be processed simultaneously", "A method of organizing data in memory", "A way to reduce power consumption in electronic circuits", "A process for distributing tasks across multiple processors"],
+        "correctAnswer": "A technique to improve CPU performance by allowing multiple instructions to be processed simultaneously"
+      },
+      {
+        "question": "What is the purpose of a topic sentence in academic writing?",
+        "options": ["To introduce the main idea of a paragraph", "To provide evidence for a claim", "To conclude the essay", "To list references and citations"],
+        "correctAnswer": "To introduce the main idea of a paragraph"
+      }  
+]

@@ -1,0 +1,45 @@
+@use './vars/mixins';
+@use './vars/extends';
+
+@media screen and (max-width:75em){
+    #theQuizUI{   
+        @include mixins.dimensionsAndPosition(100%,auto,relative);
+        @include mixins.displayFlexAndItsProperties(column,center,center);
+        }
+        #theOptions{
+            &__AB{ 
+                @include mixins.dimensionsAndPosition(100%,3.5em,relative);                
+            }
+            &__CD{
+                @include mixins.dimensionsAndPosition(100%,3.5em,relative);                     
+            }
+        }
+}
+@media screen and (max-width:65em){
+    #scorePanel{
+        @include mixins.dimensionsAndPosition(100%,50%,relative);
+       }
+    #questionPanel{
+        @include mixins.dimensionsAndPosition(100%,50%,relative);
+     }
+     #theOptions{
+        &__AB{ 
+            @include mixins.dimensionsAndPosition(100%,5.5em,relative);                
+        }
+        &__CD{
+            @include mixins.dimensionsAndPosition(100%,5.5em,relative);                     
+        }
+    }
+        
+}
+
+@media screen and (max-width:55em){
+    #theOptions{     
+        &__AB{ 
+            @include mixins.dimensionsAndPosition(100%,6.5em,relative);                
+        }
+        &__CD{
+            @include mixins.dimensionsAndPosition(100%,6.5em,relative);                     
+        }
+    }
+}

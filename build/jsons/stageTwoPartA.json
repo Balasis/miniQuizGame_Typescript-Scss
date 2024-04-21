@@ -1,0 +1,61 @@
+[
+    {
+    "question": "What is logic programming?",
+    "options": ["A programming paradigm based on formal logic", "A method for writing web applications", "A technique for data analysis", "A type of human-computer interaction"],
+    "correctAnswer": "A programming paradigm based on formal logic"
+    },
+    {
+    "question": "What is a binary search tree?",
+    "options": ["A data structure for organizing and searching data", "A method for analyzing statistical data", "A tool for web development", "An interface for human-computer interaction"],
+    "correctAnswer": "A data structure for organizing and searching data"
+    },
+    {
+    "question": "What is AJAX in web programming?",
+    "options": ["A technique for asynchronous communication between the client and server", "A data analysis tool", "An approach to human-computer interaction design", "A method for organizing information systems"],
+    "correctAnswer": "A technique for asynchronous communication between the client and server"
+    },
+    {
+    "question": "What is regression analysis in data analysis?",
+    "options": ["A statistical method for modeling the relationship between variables", "A programming language for logic programming", "A protocol for information systems", "An input method for human-computer interaction"],
+    "correctAnswer": "A statistical method for modeling the relationship between variables"
+    },
+    {
+    "question": "What is usability testing in human-computer interaction?",
+    "options": ["A method for evaluating the effectiveness and efficiency of a user interface", "A process for normalizing database systems", "A technique for encryption", "A mathematical model for computation"],
+    "correctAnswer": "A method for evaluating the effectiveness and efficiency of a user interface"
+    },
+    {
+    "question": "What is a relational database management system (RDBMS)?",
+    "options": ["A software system for managing relational databases", "A data structure in algorithms", "A programming paradigm in logic programming", "A tool for web programming"],
+    "correctAnswer": "A software system for managing relational databases"
+    },{
+    "question": "What is Prolog?",
+    "options": ["A logic programming language", "A data structure in algorithms", "A framework for web programming", "A statistical analysis tool"],
+    "correctAnswer": "A logic programming language"
+    },
+    {
+    "question": "What is a linked list?",
+    "options": ["A linear data structure", "A method for analyzing statistical data", "A component of web programming languages", "An interface for information systems"],
+    "correctAnswer": "A linear data structure"
+    },
+    {
+    "question": "What is DOM manipulation in web programming?",
+    "options": ["The process of interacting with the Document Object Model", "A technique for data analysis", "A principle of human-computer interaction design", "A method for managing information systems"],
+    "correctAnswer": "The process of interacting with the Document Object Model"
+    },
+    {
+    "question": "What is hypothesis testing in statistics?",
+    "options": ["A method for making inferences about a population based on sample data", "A programming paradigm for logic programming", "A protocol for human-computer interaction", "A data storage technique in information systems"],
+    "correctAnswer": "A method for making inferences about a population based on sample data"
+    },
+    {
+    "question": "What is affordance in human-computer interaction?",
+    "options": ["A perceived action possibility of an object", "A technique for database normalization", "A method for encryption", "A model for finite automata"],
+    "correctAnswer": "A perceived action possibility of an object"
+    },
+    {
+    "question": "What is a content management system (CMS)?",
+    "options": ["A software application for creating, managing, and modifying digital content", "A data structure for algorithms", "A programming language for web development", "A tool for statistical analysis"],
+    "correctAnswer": "A software application for creating, managing, and modifying digital content"
+    }
+    ]

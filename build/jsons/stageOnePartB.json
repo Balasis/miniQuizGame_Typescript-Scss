@@ -1,0 +1,63 @@
+[
+    {
+      "question": "What is polymorphism?",
+      "options": ["The ability of a variable or function to take on multiple forms", "A type of loop in programming", "A linear data structure", "A method for storing data"],
+      "correctAnswer": "The ability of a variable or function to take on multiple forms"
+    },
+    {
+      "question": "What is the purpose of encapsulation in object-oriented programming?",
+      "options": ["To hide implementation details and restrict access to certain components", "To define the structure of a class", "To create multiple instances of a class", "To perform arithmetic calculations"],
+      "correctAnswer": "To hide implementation details and restrict access to certain components"
+    },
+    {
+      "question": "What is normalization in database systems?",
+      "options": ["The process of organizing data to minimize redundancy and dependency", "A technique for data encryption", "A method for querying databases", "The process of removing data from a database"],
+      "correctAnswer": "The process of organizing data to minimize redundancy and dependency"
+    },
+    {
+      "question": "What is a finite automaton?",
+      "options": ["A mathematical model of computation with a finite set of states", "A hardware component in a computer system", "A type of programming language", "A network protocol"],
+      "correctAnswer": "A mathematical model of computation with a finite set of states"
+    },
+    {
+      "question": "What is the purpose of the OSI model in networking?",
+      "options": ["To provide a conceptual framework for understanding how networks operate", "To define the syntax and structure of network protocols", "To store and retrieve data from databases", "To optimize network performance"],
+      "correctAnswer": "To provide a conceptual framework for understanding how networks operate"
+    },
+    {
+      "question": "What is the purpose of a use case diagram in systems analysis and design?",
+      "options": ["To illustrate the interactions between users and a system", "To define the structure of a database", "To implement algorithms for data processing", "To measure network latency"],
+      "correctAnswer": "To illustrate the interactions between users and a system"
+    },
+    {
+      "question": "What is propositional logic?",
+      "options": ["A formal system for reasoning about the truth values of propositions", "A programming language for web development", "A type of database management system", "A technique for data visualization"],
+      "correctAnswer": "A formal system for reasoning about the truth values of propositions"
+    },
+    {
+      "question": "What is the purpose of a cache memory in computer architecture?",
+      "options": ["To temporarily store frequently accessed data for faster retrieval", "To perform arithmetic calculations", "To connect different components of a computer system", "To store data permanently"],
+      "correctAnswer": "To temporarily store frequently accessed data for faster retrieval"
+    },
+    {
+      "question": "What is a primary key in database systems?",
+      "options": ["A unique identifier for each record in a table", "A method for querying databases", "A programming language construct", "A hardware component in a computer system"],
+      "correctAnswer": "A unique identifier for each record in a table"
+    },
+    {
+      "question": "What is the purpose of a topic sentence in academic writing?",
+      "options": ["To introduce the main idea of a paragraph", "To provide evidence for a claim", "To conclude the essay", "To list references and citations"],
+      "correctAnswer": "To introduce the main idea of a paragraph"
+    },
+    {
+      "question": "What is the purpose of a data flow diagram in systems analysis and design?",
+      "options": ["To depict the flow of data through a system", "To define the structure of a database", "To implement algorithms for data processing", "To measure network latency"],
+      "correctAnswer": "To depict the flow of data through a system"
+    },
+    {
+      "question": "What is the purpose of a constructor in object-oriented programming?",
+      "options": ["To initialize objects of a class", "To define the structure of a class", "To create multiple instances of a class", "To perform arithmetic calculations"],
+      "correctAnswer": "To initialize objects of a class"
+    }
+  ]
+  

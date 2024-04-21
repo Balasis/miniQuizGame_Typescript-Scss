@@ -1,0 +1,102 @@
+[
+    {
+        "question": "What is the time complexity of the best-case scenario for a binary search algorithm?",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": "O(1)"
+    },
+    {
+        "question": "In the context of distributed systems, what is Paxos, and how does it ensure consensus?",
+        "options": [
+            "A consensus algorithm used to achieve distributed agreement among multiple nodes",
+            "A data structure for efficient message passing",
+            "A protocol for network routing",
+            "A framework for parallel processing"
+        ],
+        "correctAnswer": "A consensus algorithm used to achieve distributed agreement among multiple nodes"
+    },
+    {
+        "question": "Describe the differences between RNNs (Recurrent Neural Networks) and CNNs (Convolutional Neural Networks), and discuss scenarios where each excels.",
+        "options": [
+            "RNNs are well-suited for sequential data while CNNs are effective for image recognition tasks",
+            "RNNs are more efficient for image processing while CNNs excel in natural language processing",
+            "RNNs and CNNs perform similarly across all tasks",
+            "RNNs and CNNs are interchangeable for any machine learning task"
+        ],
+        "correctAnswer": "RNNs are well-suited for sequential data while CNNs are effective for image recognition tasks"
+    },
+    {
+        "question": "Explain the concept of parallel computing and provide examples of parallel programming paradigms.",
+        "options": [
+            "Parallel computing involves executing multiple tasks simultaneously to increase computational speed",
+            "Examples include SIMD (Single Instruction, Multiple Data) and MIMD (Multiple Instruction, Multiple Data) architectures",
+            "Parallel programming paradigms leverage concepts such as task parallelism and data parallelism",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    },
+    {
+        "question": "What is the difference between a process and a thread in operating systems, and when would you choose one over the other?",
+        "options": [
+            "A process is a program in execution, while a thread is a unit of execution within a process",
+            "Processes provide more isolation but have higher overhead, while threads share resources within a process but are lighter weight",
+            "Use processes for tasks that require strong isolation and threads for tasks that benefit from shared memory",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    },
+    {
+        "question": "Explain the CAP theorem and its implications for distributed systems design.",
+        "options": [
+            "The CAP theorem states that a distributed system cannot simultaneously provide Consistency, Availability, and Partition tolerance",
+            "Systems can only guarantee two out of the three properties, leading to trade-offs in system design",
+            "Examples include CP (Consistency and Partition tolerance) systems like traditional databases and AP (Availability and Partition tolerance) systems like NoSQL databases",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    },
+    {
+        "question": "What is the significance of the Church-Turing thesis in theoretical computer science?",
+        "options": [
+            "It asserts that any function computable by an algorithm can be computed by a Turing machine",
+            "It provides a theoretical foundation for understanding the limits of computation",
+            "The thesis has profound implications for fields such as computability theory and complexity theory",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    },
+    {
+        "question": "Discuss the principles behind fault tolerance and redundancy in distributed systems.",
+        "options": [
+            "Fault tolerance aims to ensure system reliability by anticipating and handling failures gracefully",
+            "Redundancy involves replicating critical components or data to mitigate the impact of failures",
+            "Techniques include replication, error detection and correction codes, and graceful degradation",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    },
+    {
+        "question": "What are some common techniques for optimizing database performance in large-scale systems?",
+        "options": [
+            "Indexing to speed up data retrieval operations",
+            "Partitioning to distribute data across multiple servers",
+            "Denormalization to reduce JOIN operations",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    },
+    {
+        "question": "Describe the concept of Big O notation and its role in algorithm analysis.",
+        "options": [
+            "Big O notation represents the upper bound of the growth rate of an algorithm's time complexity as the input size increases",
+            "It provides a standardized way to compare the efficiency of algorithms",
+            "Common complexities include O(1), O(log n), O(n), O(n log n), O(n^2), etc.",
+            "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+    }
+]

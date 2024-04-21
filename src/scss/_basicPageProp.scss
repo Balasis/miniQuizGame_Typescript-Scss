@@ -36,10 +36,3 @@ main{
 @include mixins.displayFlexAndItsProperties(column,center,center);
 }
 
-@media screen and (max-width:60em){
-    #theQuizUI{   
-        @include mixins.dimensionsAndPosition(100%,auto,relative);
-        @include mixins.displayFlexAndItsProperties(column,center,center);
-        }
-        
-}

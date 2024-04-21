@@ -1,0 +1,64 @@
+[
+    {
+    "question": "What are professional ethics in IT?",
+    "options": ["A set of moral principles governing the behavior of IT professionals", "An operating system feature", "A software development methodology", "A functional programming language"],
+    "correctAnswer": "A set of moral principles governing the behavior of IT professionals"
+    },
+    {
+    "question": "What is a process in an operating system?",
+    "options": ["An instance of a program in execution", "A technique for software reliability", "A method in functional programming", "An artificial intelligence algorithm"],
+    "correctAnswer": "An instance of a program in execution"
+    },
+    {
+    "question": "What is Agile software development?",
+    "options": ["An iterative and incremental approach to software development", "An artificial intelligence technique", "A formal method for software reliability", "A feature of functional programming languages"],
+    "correctAnswer": "An iterative and incremental approach to software development"
+    },
+    {
+    "question": "What is a higher-order function in functional programming?",
+    "options": ["A function that takes another function as an argument or returns a function as a result", "A method for formal methods in software reliability", "A module in an operating system", "An artificial intelligence architecture"],
+    "correctAnswer": "A function that takes another function as an argument or returns a function as a result"
+    },
+    {
+    "question": "What is machine learning in artificial intelligence?",
+    "options": ["A branch of AI that enables machines to learn from data and improve over time", "A technique for software development in practice", "A protocol for formal methods", "An operating system kernel feature"],
+    "correctAnswer": "A branch of AI that enables machines to learn from data and improve over time"
+    },
+    {
+    "question": "What is formal verification in software reliability?",
+    "options": ["A process of proving that a system meets its specification", "An issue in professional IT ethics", "A component of an operating system", "A concept in functional programming"],
+    "correctAnswer": "A process of proving that a system meets its specification"
+    },{
+    "question": "What is the role of a code of conduct in professional IT?",
+    "options": ["To establish expectations for ethical behavior among IT professionals", "To manage system resources in an operating system", "To design software development methodologies", "To implement functional programming principles"],
+    "correctAnswer": "To establish expectations for ethical behavior among IT professionals"
+    },
+    {
+    "question": "What is virtual memory in operating systems?",
+    "options": ["A memory management technique that uses disk space to extend RAM", "A software reliability tool", "A function in functional programming languages", "An artificial intelligence algorithm"],
+    "correctAnswer": "A memory management technique that uses disk space to extend RAM"
+    },
+    {
+    "question": "What is the waterfall model in software development?",
+    "options": ["A sequential software development process", "An artificial intelligence technique", "A formal method for software reliability", "A concept in functional programming"],
+    "correctAnswer": "A sequential software development process"
+    },
+    {
+    "question": "What is currying in functional programming?",
+    "options": ["The process of transforming a function that takes multiple arguments into a series of functions", "A technique for formal methods in software reliability", "A feature of operating systems", "An artificial intelligence methodology"],
+    "correctAnswer": "The process of transforming a function that takes multiple arguments into a series of functions"
+    },
+    {
+    "question": "What is natural language processing (NLP) in artificial intelligence?",
+    "options": ["The ability of computers to understand and generate human language", "A practice in software development", "A formal method for software reliability", "An operating system feature"],
+    "correctAnswer": "The ability of computers to understand and generate human language"
+    },
+    {
+    "question": "What is model checking in formal methods?",
+    "options": ["A technique for verifying whether a system meets its specification by exhaustively exploring its state space", "An issue in professional IT ethics", "A component of an operating system", "A concept in functional programming"],
+    "correctAnswer": "A technique for verifying whether a system meets its specification by exhaustively exploring its state space"
+    }
+
+
+
+    ]

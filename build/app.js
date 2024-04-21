@@ -261,9 +261,14 @@ function loadInTheQuiz(path, startingIndexStage, endingIndexStage, dif) {
 }
 function initializeQuizUi() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield loadInTheQuiz("./build/easyQuestions.json", 1, 5, 1);
-        yield loadInTheQuiz("./build/mediumQuestions.json", 6, 10, 2);
-        yield loadInTheQuiz("./build/hardQuestions.json", 11, 15, 3);
+        yield loadInTheQuiz("./build/jsons/stageOnePartA.json", 1, 2, 1);
+        yield loadInTheQuiz("./build/jsons/stageOnePartB.json", 3, 4, 2);
+        yield loadInTheQuiz("./build/jsons/stageTwoPartA.json", 5, 6, 3);
+        yield loadInTheQuiz("./build/jsons/stageTwoPartB.json", 7, 8, 4);
+        yield loadInTheQuiz("./build/jsons/stageThreePartA.json", 9, 10, 5);
+        yield loadInTheQuiz("./build/jsons/stageThreePartB.json", 11, 12, 6);
+        yield loadInTheQuiz("./build/jsons/masters.json", 13, 14, 7);
+        yield loadInTheQuiz("./build/jsons/masterDrEfremidis.json", 9, 15, 8);
         domScorePanelElement.emptyScorePanelElement(); //in Case of reset
         domScorePanelElement.populateScorePanelElement();
         domQuestionElements.populateQuestionDomElements();

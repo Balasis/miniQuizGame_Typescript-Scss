@@ -23,9 +23,11 @@
      @include mixins.dimensionsAndPosition(100%,100%,relative);
     
      &__AB{
+        
          @extend %linesOfQuestions;
-         @include mixins.dimensionsAndPosition(100%,100%,relative);
+         @include mixins.dimensionsAndPosition(100%,3.5em,relative);
          @include mixins.displayFlexAndItsProperties(row,center,center);
+         margin-bottom:1.5em;
          &__A{
              margin-left: 0;
          }
@@ -35,7 +37,7 @@
      }
      &__CD{
          @extend %linesOfQuestions;
-         @include mixins.dimensionsAndPosition(100%,100%,relative);
+         @include mixins.dimensionsAndPosition(100%,3.5em,relative);
          @include mixins.displayFlexAndItsProperties(row,center,center);
          &__C{
             margin-left: 0;
@@ -49,7 +51,6 @@
  .qOption{ 
      @include mixins.dimensionsAndPosition(50%,100%,relative);
      @include mixins.displayFlexAndItsProperties(row,center,center);
-     
      padding:0.5em;    
      border:1px solid colors.$color_BorderColorOfOptions;
      border-radius: 30% 30% 30%;
@@ -64,8 +65,10 @@
      }           
  
      &Text{
-             @include mixins.dimensionsAndPosition(100%,100%,relative);
+             font-size: clamp(8px, 100%, 20px);
+             @include mixins.dimensionsAndPosition(70%,100%,relative);
              @include mixins.displayFlexAndItsProperties(row,center,center);
+             text-align: center;
              color:colors.$color_TextColor;
              &:before{
                  display:flex;
@@ -75,7 +78,7 @@
                  transform:rotate(45deg);  
                  top: calc(50% - 0.4em);
                  left:0;
-                 margin-left:10%;   
+                 margin-left:-10%;   
                               
              }
              &:hover::before{                

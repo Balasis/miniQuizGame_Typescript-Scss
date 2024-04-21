@@ -1,0 +1,42 @@
+[
+    {
+    "question": "What is the software development life cycle (SDLC) in software engineering?",
+    "options": ["A process for developing software applications", "A statistical analysis method", "A networking protocol", "A strategy for IT in business"],
+    "correctAnswer": "A process for developing software applications"
+    },
+    {
+    "question": "What is exploratory data analysis in data science?",
+    "options": ["An approach to analyzing datasets to summarize their main characteristics", "A software engineering methodology", "A concept in network computing", "A strategy for innovation and entrepreneurship in IT"],
+    "correctAnswer": "An approach to analyzing datasets to summarize their main characteristics"
+    },
+    {
+    "question": "What is TCP/IP in network computing?",
+    "options": ["A set of protocols for communication between devices on the internet", "A method for cloud computing", "A principle of social media networks", "A technique for IT strategy in business"],
+    "correctAnswer": "A set of protocols for communication between devices on the internet"
+    },
+    {
+    "question": "What is virtualization in cloud computing?",
+    "options": ["The creation of a virtual (rather than actual) version of something, such as an operating system, server, storage device, or network resource", "A data science technique", "A method for social media analysis", "An aspect of e-commerce"],
+    "correctAnswer": "The creation of a virtual (rather than actual) version of something, such as an operating system, server, storage device, or network resource"
+    },
+    {
+    "question": "What is disruptive innovation in IT entrepreneurship?",
+    "options": ["The introduction of a new product or service that creates a significant impact on existing markets", "A data science algorithm", "A networking strategy", "A component of IT strategy in business"],
+    "correctAnswer": "The introduction of a new product or service that creates a significant impact on existing markets"
+    },
+    {
+    "question": "What is user-generated content in social media?",
+    "options": ["Content created by users of online platforms", "A software engineering approach", "A network computing protocol", "A model for e-commerce"],
+    "correctAnswer": "Content created by users of online platforms"
+    },
+    {
+    "question": "What is online payment processing in e-commerce?",
+    "options": ["The handling of electronic transactions for goods or services purchased online", "A technique in data science", "A networking computing concept", "A strategy for IT entrepreneurship"],
+    "correctAnswer": "The handling of electronic transactions for goods or services purchased online"
+    },
+    {
+    "question": "What is IT alignment with business strategy?",
+    "options": ["The process of ensuring that IT initiatives and investments are in line with the objectives and goals of the business", "A software engineering principle", "A data science methodology", "A social media strategy"],
+    "correctAnswer": "The process of ensuring that IT initiatives and investments are in line with the objectives and goals of the business"
+    }
+]
