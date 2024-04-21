@@ -2,8 +2,8 @@
     {
         "question": "What is the time complexity of the best-case scenario for a binary search algorithm?",
         "options": [
-            "O(1)",
             "O(log n)",
+            "O(1)",
             "O(n)",
             "O(n log n)"
         ],
@@ -12,10 +12,11 @@
     {
         "question": "In the context of distributed systems, what is Paxos, and how does it ensure consensus?",
         "options": [
-            "A consensus algorithm used to achieve distributed agreement among multiple nodes",
+            
             "A data structure for efficient message passing",
             "A protocol for network routing",
-            "A framework for parallel processing"
+            "A framework for parallel processing",
+            "A consensus algorithm used to achieve distributed agreement among multiple nodes"
         ],
         "correctAnswer": "A consensus algorithm used to achieve distributed agreement among multiple nodes"
     },

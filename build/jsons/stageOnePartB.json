@@ -1,22 +1,22 @@
 [
     {
       "question": "What is polymorphism?",
-      "options": ["The ability of a variable or function to take on multiple forms", "A type of loop in programming", "A linear data structure", "A method for storing data"],
+      "options": [ "A type of loop in programming", "A linear data structure", "A method for storing data","The ability of a variable or function to take on multiple forms"],
       "correctAnswer": "The ability of a variable or function to take on multiple forms"
     },
     {
       "question": "What is the purpose of encapsulation in object-oriented programming?",
-      "options": ["To hide implementation details and restrict access to certain components", "To define the structure of a class", "To create multiple instances of a class", "To perform arithmetic calculations"],
+      "options": [ "To define the structure of a class", "To create multiple instances of a class", "To perform arithmetic calculations","To hide implementation details and restrict access to certain components"],
       "correctAnswer": "To hide implementation details and restrict access to certain components"
     },
     {
       "question": "What is normalization in database systems?",
-      "options": ["The process of organizing data to minimize redundancy and dependency", "A technique for data encryption", "A method for querying databases", "The process of removing data from a database"],
+      "options": [ "A method for querying databases", "A technique for data encryption","The process of organizing data to minimize redundancy and dependency", "The process of removing data from a database"],
       "correctAnswer": "The process of organizing data to minimize redundancy and dependency"
     },
     {
       "question": "What is a finite automaton?",
-      "options": ["A mathematical model of computation with a finite set of states", "A hardware component in a computer system", "A type of programming language", "A network protocol"],
+      "options": [ "A hardware component in a computer system","A mathematical model of computation with a finite set of states", "A type of programming language", "A network protocol"],
       "correctAnswer": "A mathematical model of computation with a finite set of states"
     },
     {
@@ -26,17 +26,17 @@
     },
     {
       "question": "What is the purpose of a use case diagram in systems analysis and design?",
-      "options": ["To illustrate the interactions between users and a system", "To define the structure of a database", "To implement algorithms for data processing", "To measure network latency"],
+      "options": [ "To define the structure of a database", "To illustrate the interactions between users and a system","To implement algorithms for data processing", "To measure network latency"],
       "correctAnswer": "To illustrate the interactions between users and a system"
     },
     {
       "question": "What is propositional logic?",
-      "options": ["A formal system for reasoning about the truth values of propositions", "A programming language for web development", "A type of database management system", "A technique for data visualization"],
+      "options": [ "A technique for data visualization" , "A programming language for web development", "A type of database management system","A formal system for reasoning about the truth values of propositions"],
       "correctAnswer": "A formal system for reasoning about the truth values of propositions"
     },
     {
       "question": "What is the purpose of a cache memory in computer architecture?",
-      "options": ["To temporarily store frequently accessed data for faster retrieval", "To perform arithmetic calculations", "To connect different components of a computer system", "To store data permanently"],
+      "options": [ "To perform arithmetic calculations", "To connect different components of a computer system", "To store data permanently","To temporarily store frequently accessed data for faster retrieval"],
       "correctAnswer": "To temporarily store frequently accessed data for faster retrieval"
     },
     {
@@ -46,17 +46,17 @@
     },
     {
       "question": "What is the purpose of a topic sentence in academic writing?",
-      "options": ["To introduce the main idea of a paragraph", "To provide evidence for a claim", "To conclude the essay", "To list references and citations"],
+      "options": [ "To provide evidence for a claim","To introduce the main idea of a paragraph", "To conclude the essay", "To list references and citations"],
       "correctAnswer": "To introduce the main idea of a paragraph"
     },
     {
       "question": "What is the purpose of a data flow diagram in systems analysis and design?",
-      "options": ["To depict the flow of data through a system", "To define the structure of a database", "To implement algorithms for data processing", "To measure network latency"],
+      "options": [ "To define the structure of a database", "To implement algorithms for data processing","To depict the flow of data through a system", "To measure network latency"],
       "correctAnswer": "To depict the flow of data through a system"
     },
     {
       "question": "What is the purpose of a constructor in object-oriented programming?",
-      "options": ["To initialize objects of a class", "To define the structure of a class", "To create multiple instances of a class", "To perform arithmetic calculations"],
+      "options": [ "To define the structure of a class","To initialize objects of a class", "To create multiple instances of a class", "To perform arithmetic calculations"],
       "correctAnswer": "To initialize objects of a class"
     }
   ]

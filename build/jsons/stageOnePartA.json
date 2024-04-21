@@ -1,7 +1,7 @@
 [
     {   
         "question": "What does HTML stand for?",
-        "options": ["Hypertext Markup Language", "Hyperlink and Text Markup Language", "Hyperlink Text Markup Language", "Hyper Transfer Markup Language"],
+        "options": [ "Hyperlink and Text Markup Language","Hypertext Markup Language", "Hyperlink Text Markup Language", "Hyper Transfer Markup Language"],
         "correctAnswer": "Hypertext Markup Language"
       },
       {
@@ -11,7 +11,7 @@
       },
       {
         "question": "What is the purpose of UML (Unified Modeling Language) diagrams?",
-        "options": ["To visualize the system architecture", "To generate code automatically", "To test software applications", "To execute programs"],
+        "options": [ "To generate code automatically", "To test software applications","To visualize the system architecture", "To execute programs"],
         "correctAnswer": "To visualize the system architecture"
       },
       {
@@ -45,7 +45,7 @@
       },
       {
         "question": "What is the fundamental theorem of calculus?",
-        "options": ["∫f(x) dx = F(x) + C", "d/dx ∫f(x) dx = f(x)", "lim (x->∞) f(x) = L", "∑f(x) = n"],
+        "options": [ "d/dx ∫f(x) dx = f(x)", "∫f(x) dx = F(x) + C","lim (x->∞) f(x) = L", "∑f(x) = n"],
         "correctAnswer": "∫f(x) dx = F(x) + C"
       },
       {
@@ -55,7 +55,7 @@
       },
       {
         "question": "What is the purpose of a topic sentence in academic writing?",
-        "options": ["To introduce the main idea of a paragraph", "To provide evidence for a claim", "To conclude the essay", "To list references and citations"],
+        "options": [ "To provide evidence for a claim", "To conclude the essay", "To introduce the main idea of a paragraph","To list references and citations"],
         "correctAnswer": "To introduce the main idea of a paragraph"
       }  
 ]

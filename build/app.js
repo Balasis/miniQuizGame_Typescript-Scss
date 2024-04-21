@@ -322,11 +322,19 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
             setTimeout(function () {
                 parentElement.classList.remove("qWaitForAnswer");
                 parentElement.classList.add("qAnswerWasWrong");
+                showTheCorrectAnswer();
                 setTimeout(function () {
                 }, 2000);
             }, 3000);
         }
     });
+}
+function showTheCorrectAnswer() {
+    for (let i = 0; i < domQuestionElements.allOp.length; i++) {
+        if (domQuestionElements.allOp[i].textContent == theQuiz.getCurrentCorrectAnswer()) {
+            domQuestionElements.allOp[i].parentElement.classList.add("qAnswerWasCorrect");
+        }
+    }
 }
 initializeQuizUi();
 domQuestionElements.resetPotentialAssistsModifications();

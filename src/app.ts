@@ -386,6 +386,7 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
             setTimeout( function(){ 
                 parentElement.classList.remove("qWaitForAnswer");
                 parentElement.classList.add("qAnswerWasWrong");
+                showTheCorrectAnswer();
                     setTimeout(function(){
                         
 
@@ -394,6 +395,14 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
         }         
     })
 }
+function showTheCorrectAnswer():void{
+    for(let i=0;i<domQuestionElements.allOp.length;i++){
+        if (domQuestionElements.allOp[i].textContent==theQuiz.getCurrentCorrectAnswer()){
+            domQuestionElements.allOp[i].parentElement!.classList.add("qAnswerWasCorrect");
+        }
+    }
+}
+
 
 initializeQuizUi();
 domQuestionElements.resetPotentialAssistsModifications();

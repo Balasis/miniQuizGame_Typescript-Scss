@@ -1,12 +1,12 @@
 [
     {
     "question": "What is disruptive innovation in entrepreneurship?",
-    "options": ["The introduction of a new product or service that significantly alters an existing market", "A concept in strategic management", "A method for managing knowledge-driven ICT projects", "An approach to front-end application development"],
+    "options": [ "A concept in strategic management","The introduction of a new product or service that significantly alters an existing market", "A method for managing knowledge-driven ICT projects", "An approach to front-end application development"],
     "correctAnswer": "The introduction of a new product or service that significantly alters an existing market"
     },
     {
     "question": "What is strategic management in modern business?",
-    "options": ["The formulation and implementation of major goals and initiatives for an organization", "A software development approach", "A principle in managing knowledge-driven ICT projects", "A strategy for front-end application development"],
+    "options": [ "A software development approach", "A principle in managing knowledge-driven ICT projects", "A strategy for front-end application development","The formulation and implementation of major goals and initiatives for an organization"],
     "correctAnswer": "The formulation and implementation of major goals and initiatives for an organization"
     },
     {
@@ -16,17 +16,17 @@
     },
     {
     "question": "How does ICT contribute to strategic management?",
-    "options": ["By providing tools and systems to support decision-making and strategic planning processes", "By facilitating front-end application development", "By enhancing user experience in human-computer interaction", "By streamlining back-end application development processes"],
+    "options": [ "By facilitating front-end application development", "By enhancing user experience in human-computer interaction","By providing tools and systems to support decision-making and strategic planning processes", "By streamlining back-end application development processes"],
     "correctAnswer": "By providing tools and systems to support decision-making and strategic planning processes"
     },
     {
     "question": "What is front-end application development?",
-    "options": ["The creation of user interfaces for web or mobile applications", "A methodology in managing knowledge-driven ICT projects", "A concept in industrial projects", "A skill in research and dissertation preparation"],
+    "options": [ "A methodology in managing knowledge-driven ICT projects","The creation of user interfaces for web or mobile applications", "A concept in industrial projects", "A skill in research and dissertation preparation"],
     "correctAnswer": "The creation of user interfaces for web or mobile applications"
     },
     {
     "question": "What is mobile application development?",
-    "options": ["The process of creating software applications for mobile devices", "A technique in strategic management", "A component of human-computer interaction and user experience", "An aspect of back-end application development"],
+    "options": [ "A technique in strategic management", "A component of human-computer interaction and user experience", "An aspect of back-end application development","The process of creating software applications for mobile devices"],
     "correctAnswer": "The process of creating software applications for mobile devices"
     },
     {
@@ -41,21 +41,21 @@
     },
     {
     "question": "What are the challenges in industrial projects?",
-    "options": ["Managing resources, meeting deadlines, and maintaining quality standards", "A strategy for research and dissertation preparation", "An aspect of mobile application development", "A principle in front-end application development"],
+    "options": [ "A strategy for research and dissertation preparation","Managing resources, meeting deadlines, and maintaining quality standards", "An aspect of mobile application development", "A principle in front-end application development"],
     "correctAnswer": "Managing resources, meeting deadlines, and maintaining quality standards"
     },
     {
     "question": "How do you prepare for a research dissertation?",
-    "options": ["By developing research skills and conducting thorough literature reviews", "By applying ICT for strategic management", "By focusing on back-end application development", "By understanding human-computer interaction and user experience"],
+    "options": [ "By applying ICT for strategic management", "By developing research skills and conducting thorough literature reviews","By focusing on back-end application development", "By understanding human-computer interaction and user experience"],
     "correctAnswer": "By developing research skills and conducting thorough literature reviews"
     },{
     "question": "What are some strategies for fostering innovation in entrepreneurship?",
-    "options": ["Encouraging creativity, risk-taking, and collaboration", "Developing strategic management plans", "Managing knowledge-driven ICT projects", "Implementing front-end application development techniques"],
+    "options": [ "Managing knowledge-driven ICT projects", "Implementing front-end application development techniques","Encouraging creativity, risk-taking, and collaboration", "Developing strategic management plans"],
     "correctAnswer": "Encouraging creativity, risk-taking, and collaboration"
     },
     {
     "question": "How does strategic management contribute to business success?",
-    "options": ["By aligning organizational goals with effective planning and execution", "By focusing on mobile application development", "By enhancing human-computer interaction and user experience", "By optimizing back-end application development processes"],
+    "options": [ "By focusing on mobile application development", "By enhancing human-computer interaction and user experience", "By optimizing back-end application development processes","By aligning organizational goals with effective planning and execution"],
     "correctAnswer": "By aligning organizational goals with effective planning and execution"
     },
     {
@@ -70,7 +70,7 @@
     },
     {
     "question": "What are some front-end application development frameworks?",
-    "options": ["React, Angular, and Vue.js", "Strategic management principles", "Managing knowledge-driven ICT projects methodologies", "Research and dissertation preparation approaches"],
+    "options": [ "Strategic management principles", "Managing knowledge-driven ICT projects methodologies","React, Angular, and Vue.js", "Research and dissertation preparation approaches"],
     "correctAnswer": "React, Angular, and Vue.js"
     }
     ]

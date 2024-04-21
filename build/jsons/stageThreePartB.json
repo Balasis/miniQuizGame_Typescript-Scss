@@ -6,22 +6,22 @@
     },
     {
     "question": "What is data preprocessing in data science?",
-    "options": ["The initial step in data analysis where raw data is transformed into a more usable format", "A software engineering methodology", "A concept in network computing", "A strategy for IT in business"],
+    "options": [ "A software engineering methodology","The initial step in data analysis where raw data is transformed into a more usable format", "A concept in network computing", "A strategy for IT in business"],
     "correctAnswer": "The initial step in data analysis where raw data is transformed into a more usable format"
     },
     {
     "question": "What is DNS (Domain Name System) in network computing?",
-    "options": ["A hierarchical decentralized naming system for computers, services, or other resources connected to the internet", "A method for cloud computing", "A principle of social media networks", "A technique for IT strategy in business"],
+    "options": [ "A method for cloud computing","A hierarchical decentralized naming system for computers, services, or other resources connected to the internet", "A principle of social media networks", "A technique for IT strategy in business"],
     "correctAnswer": "A hierarchical decentralized naming system for computers, services, or other resources connected to the internet"
     },
     {
     "question": "What is elasticity in cloud computing?",
-    "options": ["The ability to scale computing resources up or down dynamically as demand changes", "A data science technique", "A method for social media analysis", "An aspect of e-commerce"],
+    "options": [ "A data science technique", "A method for social media analysis", "An aspect of e-commerce","The ability to scale computing resources up or down dynamically as demand changes"],
     "correctAnswer": "The ability to scale computing resources up or down dynamically as demand changes"
     },
     {
     "question": "What is lean startup methodology in IT entrepreneurship?",
-    "options": ["An approach for developing businesses and products based on validated learning, experimentation, and iterative product releases", "A data science algorithm", "A networking strategy", "A component of IT strategy in business"],
+    "options": [ "A data science algorithm", "A networking strategy", "A component of IT strategy in business","An approach for developing businesses and products based on validated learning, experimentation, and iterative product releases"],
     "correctAnswer": "An approach for developing businesses and products based on validated learning, experimentation, and iterative product releases"
     },
     {
@@ -31,12 +31,12 @@
     },
     {
     "question": "What is secure online transaction processing in e-commerce?",
-    "options": ["The protection of electronic transactions to ensure confidentiality, integrity, and authenticity", "A technique in data science", "A networking computing concept", "A strategy for IT entrepreneurship"],
+    "options": [ "A technique in data science","The protection of electronic transactions to ensure confidentiality, integrity, and authenticity", "A networking computing concept", "A strategy for IT entrepreneurship"],
     "correctAnswer": "The protection of electronic transactions to ensure confidentiality, integrity, and authenticity"
     },
     {
     "question": "What is strategic alignment in IT management?",
-    "options": ["Ensuring that IT goals and objectives support the overall business strategy", "A software engineering principle", "A data science methodology", "A social media strategy"],
+    "options": [ "A software engineering principle","Ensuring that IT goals and objectives support the overall business strategy", "A data science methodology", "A social media strategy"],
     "correctAnswer": "Ensuring that IT goals and objectives support the overall business strategy"
     }
 ]
