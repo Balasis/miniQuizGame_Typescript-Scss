@@ -39,6 +39,14 @@ const domScorePanelElement = {
             }
             this.scorePanel.insertBefore(stageDiv, this.scorePanel.firstChild);
         }
+    },
+    updateScorePanelUiFocusToNextStage() {
+        let sc = theQuiz.getStageCounter();
+        let prevStageDom = document.getElementById(`s_${sc - 1}`);
+        prevStageDom.style.backgroundColor = "initial";
+        prevStageDom.querySelector(".stageAnsweredTick").textContent = "*";
+        let curStageDom = document.getElementById(`s_${sc}`);
+        curStageDom.style.backgroundColor = "orange";
     }
 };
 const domQuestionElements = {
@@ -48,13 +56,20 @@ const domQuestionElements = {
     theOpC: document.getElementById("theOptions__C&D__C"),
     theOpD: document.getElementById("theOptions__C&D__D"),
     allOp: document.getElementsByClassName("qOption"),
-    populateQuestionDomElements(index) {
-        this.theQuestion.textContent = theQuiz.getStagesBoard()[index].getQuestion().getTheQuestion();
+    populateQuestionDomElements() {
+        let sc = theQuiz.getStageCounter();
+        this.theQuestion.textContent = theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
         //trying with json type...array instead of methods
-        this.theOpA.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][0];
-        this.theOpB.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][1];
-        this.theOpC.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][2];
-        this.theOpD.textContent = theQuiz.getStagesBoard()[index]["question"]["options"][3];
+        this.theOpA.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][0];
+        this.theOpB.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][1];
+        this.theOpC.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][2];
+        this.theOpD.textContent = theQuiz.getStagesBoard()[sc]["question"]["options"][3];
+    },
+    resetPotentialAssistsModifications() {
+        for (const p of this.allOp) {
+            //reset 50-50 assist
+            p.style.pointerEvents = "auto";
+        }
     }
 };
 class Player {
@@ -73,6 +88,14 @@ class Player {
     }
     getMoneyEarned() {
         return this.moneyEarned;
+    }
+    useAssist(theAssist) {
+        if (!theAssist.getUsed()) {
+            theAssist.modifyTheQuiz();
+        }
+        else {
+            console.log("helpUsedAlready");
+        }
     }
     toString() {
         return `Player name: ${this.name.toString()} holds so far ${this.moneyEarned}`;
@@ -118,19 +141,54 @@ class Stage {
         this.assistUsed = assistedYorN;
     }
 }
-const assistFiftyFifty = {
-    description: "Hides 2 out of 4 incorrect options",
-    modifyTheQuiz() {
-        console.log(theQuizUI);
+class Assist {
+    constructor(used = false, description) {
+        this.used = used;
+        this.description = description;
     }
-};
+    getUsed() {
+        return this.used;
+    }
+    setUsed(b) {
+        this.used = b;
+    }
+}
+class AssistFiftyFifty extends Assist {
+    constructor() {
+        super(false, "Hides 2 out of 4 incorrect options");
+    }
+    modifyTheQuiz() {
+        let indexOfCorrectAnswer;
+        let numberOfHidden = 0;
+        let indexNumbersToBeHidden = [];
+        for (let k = 0; k <= domQuestionElements.allOp.length; k++) {
+            if (domQuestionElements.allOp[k].textContent === theQuiz.getCurrentCorrectAnswer()) {
+                indexOfCorrectAnswer = k;
+                break;
+            }
+        }
+        while (numberOfHidden < 2) {
+            let r = randomizer(0, domQuestionElements.allOp.length);
+            if (r != indexOfCorrectAnswer && !indexNumbersToBeHidden.includes(r)) {
+                indexNumbersToBeHidden.push(r);
+                domQuestionElements.allOp[r].textContent = "";
+                domQuestionElements.allOp[r].style.pointerEvents = "none";
+                numberOfHidden++;
+            }
+        }
+        super.setUsed(true);
+    }
+}
 class TheQuiz {
     constructor(thePlayer, timeSinceQuizStarted, stageCounter) {
         this.stageCounter = 0;
         this.stagesBoard = {};
+        this.theAssists = {};
         this.thePlayer = thePlayer;
         this.timeSinceQuizStarted = timeSinceQuizStarted;
         this.stageCounter = stageCounter;
+        let assistFiftyFifty = new AssistFiftyFifty();
+        this.theAssists.assistFiftyFifty = assistFiftyFifty;
     }
     settimeSinceQuizStarted(timeSinceQuizStarted) {
         this.timeSinceQuizStarted = timeSinceQuizStarted;
@@ -144,6 +202,12 @@ class TheQuiz {
     addStageToStagesBoard(stageNumber, stage) {
         this.stagesBoard[stageNumber] = stage;
     }
+    getAllAssists() {
+        return this.theAssists;
+    }
+    getAnAssist(nameOfAssist) {
+        return this.theAssists[nameOfAssist];
+    }
     getStagesBoard() {
         return this.stagesBoard;
     }
@@ -152,6 +216,9 @@ class TheQuiz {
     }
     getStageCounter() {
         return this.stageCounter;
+    }
+    getCurrentCorrectAnswer() {
+        return this.stagesBoard[this.stageCounter].getQuestion().getTheCorrectAnswer();
     }
     toString() {
         return `timeSinceQuizStarted: ${this.timeSinceQuizStarted.toString()} with
@@ -178,7 +245,6 @@ function loadInTheQuiz(path, startingIndexStage, endingIndexStage, dif) {
                 let aStage = new Stage(i, moneyBoardFetch[i], false, aQuestion);
                 theQuiz.addStageToStagesBoard(i, aStage);
             }
-            console.log("loadInTheQuiz");
         });
     });
 }
@@ -189,29 +255,16 @@ function initializeQuizUi() {
         yield loadInTheQuiz("./build/hardQuestions.json", 11, 15, 3);
         domScorePanelElement.emptyScorePanelElement(); //in Case of reset
         domScorePanelElement.populateScorePanelElement();
-        domQuestionElements.populateQuestionDomElements(1);
+        domQuestionElements.populateQuestionDomElements();
     });
 }
 function updateStage() {
-    //stageCounter has been increased before calling of this function
-    //therefore we just reset/set properties to previous stage and to current one
-    //fetch the current(justIncreased) stageCounter to use it as index
-    let sc = theQuiz.getStageCounter();
-    //declaration of previous stage
-    let indexOfPreviousStageBorderDiv = `s_${sc - 1}`;
-    let prevStageDom = document.getElementById(indexOfPreviousStageBorderDiv);
-    //declaration of current(just Increased) stage
-    let indexOfNextStageBorderDiv = `s_${sc}`;
-    let curStageDom = document.getElementById(indexOfNextStageBorderDiv);
-    //set/reset properties in the previous stage
-    prevStageDom.style.backgroundColor = "initial";
-    prevStageDom.querySelector(".stageAnsweredTick").textContent = "*";
-    //set/reset properties in the current stage
-    curStageDom.style.backgroundColor = "orange";
-    domQuestionElements.populateQuestionDomElements(sc);
+    domScorePanelElement.updateScorePanelUiFocusToNextStage();
+    domQuestionElements.resetPotentialAssistsModifications();
+    domQuestionElements.populateQuestionDomElements();
 }
 function wonTheGame() {
-    console.log("You won the game"); //placeholder;
+    // console.log("You won the game");//placeholder;
 }
 function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -229,12 +282,12 @@ let isOnload = false;
 for (let e = 0; e < domQuestionElements.allOp.length; e++) {
     domQuestionElements.allOp[e].addEventListener('click', function () {
         if (isOnload) {
-            console.log("we are on load..plz try later");
+            // console.log("we are on load..plz try later");
             return;
         }
         isOnload = true;
         domQuestionElements.allOp[e].style.color = "orange";
-        if (domQuestionElements.allOp[e].textContent == theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()) {
+        if (domQuestionElements.allOp[e].textContent == theQuiz.getCurrentCorrectAnswer()) {
             setTimeout(function () {
                 domQuestionElements.allOp[e].style.color = "green";
                 setTimeout(function () {
@@ -259,3 +312,6 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
     });
 }
 initializeQuizUi();
+domQuestionElements.resetPotentialAssistsModifications();
+// thePlayer.useAssist(theQuiz.getAnAssist("assistFiftyFifty"));
+// console.log(theQuiz.getAllAssists());

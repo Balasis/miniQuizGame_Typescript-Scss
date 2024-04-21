@@ -3,6 +3,7 @@ interface ScorePanelElement{
     scorePanel:HTMLElement;
     emptyScorePanelElement:()=>void;
     populateScorePanelElement:()=>void;
+    updateScorePanelUiFocusToNextStage:()=>void;
 }
 interface QuestionElements{
     theQuestion:HTMLElement;
@@ -11,7 +12,8 @@ interface QuestionElements{
     theOpC: HTMLElement;
     theOpD: HTMLElement;
     allOp: HTMLCollectionOf<HTMLElement>;
-    populateQuestionDomElements:(index:number)=>void;
+    populateQuestionDomElements:()=>void;
+    resetPotentialAssistsModifications:()=>void;
 }
 
 const domScorePanelElement:ScorePanelElement={
@@ -48,8 +50,17 @@ const domScorePanelElement:ScorePanelElement={
             }
             this.scorePanel.insertBefore(stageDiv,this.scorePanel.firstChild);
         } 
-    }
+    },
+    updateScorePanelUiFocusToNextStage(){
+    let sc:number=theQuiz.getStageCounter();
 
+    let prevStageDom:HTMLElement=document.getElementById(`s_${sc-1}`)!;
+    prevStageDom.style.backgroundColor="initial";
+    prevStageDom.querySelector(".stageAnsweredTick")!.textContent="*";
+
+    let curStageDom:HTMLElement=document.getElementById(`s_${sc}`)!;
+    curStageDom.style.backgroundColor="orange";
+    }
 }
 
 
@@ -62,16 +73,21 @@ const domQuestionElements:QuestionElements={
     theOpD:document.getElementById("theOptions__C&D__D")!,
     allOp:document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLElement>,
 
-    populateQuestionDomElements(index:number){
-        this.theQuestion.textContent=theQuiz.getStagesBoard()[index].getQuestion().getTheQuestion();
+    populateQuestionDomElements(){
+        let sc:number=theQuiz.getStageCounter();
+        this.theQuestion.textContent=theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
         //trying with json type...array instead of methods
-        this.theOpA.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][0];
-        this.theOpB.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][1];
-        this.theOpC.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][2];
-        this.theOpD.textContent=theQuiz.getStagesBoard()[index]["question"]["options"][3];
+        this.theOpA.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][0];
+        this.theOpB.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][1];
+        this.theOpC.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][2];
+        this.theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
+    },
+    resetPotentialAssistsModifications(){
+        for(const p of this.allOp){
+            //reset 50-50 assist
+            p.style.pointerEvents = "auto";
+        }
     }
-
-
 }
 
 
@@ -95,6 +111,15 @@ class Player{
 
     public getMoneyEarned():number{
         return this.moneyEarned;
+    }
+
+    public useAssist(theAssist:Assist):void{
+        if (!theAssist.getUsed()){
+            theAssist.modifyTheQuiz();
+        }else{
+            console.log("helpUsedAlready");
+        }
+        
     }
 
     public toString():string{
@@ -150,15 +175,44 @@ class Stage{
 }
 
 
-interface Assist{
-    description:string;
-    modifyTheQuiz:()=>void;
+abstract class Assist{
+    constructor(private used:boolean=false , private description:string){
+
+    }
+    public getUsed():boolean{
+        return this.used;
+    }
+    public setUsed(b:boolean):void{
+        this.used=b;
+    }
+    public abstract modifyTheQuiz():void;
 }
 
-const assistFiftyFifty:Assist={
-    description:"Hides 2 out of 4 incorrect options";
-    modifyTheQuiz(){
-        console.log(theQuizUI);
+class AssistFiftyFifty extends Assist{
+    constructor(){
+        super(false,"Hides 2 out of 4 incorrect options");
+
+    }
+    public modifyTheQuiz():void{
+        let indexOfCorrectAnswer;
+        let numberOfHidden:number=0;
+        let indexNumbersToBeHidden:number[]=[];       
+       for(let k=0; k <= domQuestionElements.allOp.length; k++){
+         if (domQuestionElements.allOp[k].textContent===theQuiz.getCurrentCorrectAnswer()){
+            indexOfCorrectAnswer=k;
+            break;
+         }
+       }
+       while(numberOfHidden<2){
+            let r=randomizer(0,domQuestionElements.allOp.length);
+            if (r!=indexOfCorrectAnswer && !indexNumbersToBeHidden.includes(r)){
+                indexNumbersToBeHidden.push(r);
+                domQuestionElements.allOp[r].textContent="";
+                domQuestionElements.allOp[r].style.pointerEvents="none";
+                numberOfHidden++;
+            }
+       }
+       super.setUsed(true);
     }
 }
 
@@ -167,11 +221,15 @@ class TheQuiz{
     private timeSinceQuizStarted:number;
     private stageCounter:number=0;
     private stagesBoard: Record<number, Stage> = {};
+    private theAssists:Record<string, Assist> = {};
 
     public constructor(thePlayer:Player,timeSinceQuizStarted:number,stageCounter:number){
         this.thePlayer=thePlayer;
         this.timeSinceQuizStarted=timeSinceQuizStarted;
         this.stageCounter=stageCounter;
+        let assistFiftyFifty=new AssistFiftyFifty();
+        this.theAssists.assistFiftyFifty=assistFiftyFifty;
+
     }
 
     public settimeSinceQuizStarted(timeSinceQuizStarted:number):void{
@@ -190,6 +248,14 @@ class TheQuiz{
         this.stagesBoard[stageNumber] = stage;
     }
 
+    public getAllAssists(){
+        return this.theAssists;
+    }
+
+    public getAnAssist(nameOfAssist:string):Assist{
+        return this.theAssists[nameOfAssist];
+    }
+
     public getStagesBoard(): Record<number, Stage> {
         return this.stagesBoard;
     }
@@ -200,6 +266,10 @@ class TheQuiz{
 
     public getStageCounter():number{
         return this.stageCounter;
+    }
+
+    public getCurrentCorrectAnswer():string{
+        return this.stagesBoard[this.stageCounter].getQuestion().getTheCorrectAnswer();
     }
 
     public toString():string{
@@ -229,7 +299,6 @@ function loadInTheQuiz(path: string, startingIndexStage: number, endingIndexStag
                         let aStage = new Stage(i, moneyBoardFetch[i], false, aQuestion);
                         theQuiz.addStageToStagesBoard(i, aStage);
                     }
-                    console.log("loadInTheQuiz");
                 });
         });
 }
@@ -240,35 +309,16 @@ await loadInTheQuiz("./build/mediumQuestions.json",6,10,2);
 await loadInTheQuiz("./build/hardQuestions.json",11,15,3); 
 domScorePanelElement.emptyScorePanelElement();//in Case of reset
 domScorePanelElement.populateScorePanelElement();
-domQuestionElements.populateQuestionDomElements(1);
+domQuestionElements.populateQuestionDomElements();
 }
 
 function updateStage():void{
-    //stageCounter has been increased before calling of this function
-    //therefore we just reset/set properties to previous stage and to current one
-
-    //fetch the current(justIncreased) stageCounter to use it as index
-    let sc:number=theQuiz.getStageCounter();
-
-    //declaration of previous stage
-    let indexOfPreviousStageBorderDiv:string=`s_${sc-1}`;
-    let prevStageDom:HTMLElement=document.getElementById(indexOfPreviousStageBorderDiv)!;
-
-    //declaration of current(just Increased) stage
-    let indexOfNextStageBorderDiv:string=`s_${sc}`;
-    let curStageDom:HTMLElement=document.getElementById(indexOfNextStageBorderDiv)!;
-
-    //set/reset properties in the previous stage
-    prevStageDom.style.backgroundColor="initial";
-    prevStageDom.querySelector(".stageAnsweredTick")!.textContent="*";
-
-    //set/reset properties in the current stage
-    curStageDom.style.backgroundColor="orange";
-    domQuestionElements.populateQuestionDomElements(sc);
+    domScorePanelElement.updateScorePanelUiFocusToNextStage();
+    domQuestionElements.resetPotentialAssistsModifications();
+    domQuestionElements.populateQuestionDomElements();
 }
 
-function wonTheGame():void{
-    console.log("You won the game");//placeholder;
+function wonTheGame():void{    
     
 }
 
@@ -282,12 +332,6 @@ function randomizer(min:number,max:number):number{
     return Math.floor((Math.random() * (max-min))+min);
 }
 
-
-
-
-
-
-
 let thePlayer:Player=new Player("John",0);
 let theQuiz:TheQuiz=new TheQuiz(thePlayer,0,1);
 let isOnload:boolean=false;
@@ -296,13 +340,13 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
 
     domQuestionElements.allOp[e].addEventListener('click',function(){
         if(isOnload){
-            console.log("we are on load..plz try later");
+            // console.log("we are on load..plz try later");
             return;
         }       
         isOnload=true;
         domQuestionElements.allOp[e].style.color="orange";
         
-        if (domQuestionElements.allOp[e].textContent==theQuiz.getStagesBoard()[theQuiz.getStageCounter()].getQuestion().getTheCorrectAnswer()){
+        if (domQuestionElements.allOp[e].textContent==theQuiz.getCurrentCorrectAnswer()){
             setTimeout( function(){ 
                 domQuestionElements.allOp[e].style.color="green";
                     setTimeout(function(){
@@ -329,7 +373,8 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
     })
 }
 
-
-
-
 initializeQuizUi();
+domQuestionElements.resetPotentialAssistsModifications();
+
+//listener of helps...
+// thePlayer.useAssist(theQuiz.getAnAssist("assistFiftyFifty"));
