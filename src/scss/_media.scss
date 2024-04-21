@@ -18,7 +18,7 @@
 @media screen and (max-width:65em){
 
     #assistsUI{
-        @include mixins.dimensionsAndPosition(100%,20%,relative); 
+        @include mixins.dimensionsAndPosition(100%,3.5em,relative); 
     }
     #scorePanel{
         @include mixins.dimensionsAndPosition(100%,40%,relative);

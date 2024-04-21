@@ -9,6 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const theQuizUI = document.getElementById("theQuizUI");
+const restartTheGameBtn = document.getElementById("restartButton");
+const theVisibleResetBtn = document.getElementById("assistsUI__theVisibleResetBtn");
+const domAssistPanelElement = {
+    AssistBtnPanel: document.getElementById("assistsUI__Buttons"),
+    populateAssistPanelElement() {
+        const assists = theQuiz.getAllAssists();
+        for (const assist in assists) {
+            let daAssist = assists[assist];
+            const assistDiv = document.createElement("div");
+            assistDiv.id = `assistD_${assist}`;
+            assistDiv.textContent = daAssist.getUIdescription();
+            assistDiv.className = "assists";
+            assistDiv.addEventListener("click", function () {
+                thePlayer.useAssist(daAssist);
+                if (daAssist.getUsed()) {
+                    assistDiv.classList.add("assistUsed");
+                }
+            });
+            this.AssistBtnPanel.appendChild(assistDiv);
+        }
+    },
+    emptyAssistPanelElement() {
+        while (this.AssistBtnPanel.firstChild) {
+            this.AssistBtnPanel.removeChild(this.AssistBtnPanel.firstChild);
+        }
+    }
+};
 const domScorePanelElement = {
     scorePanel: document.getElementById("scorePanel"),
     emptyScorePanelElement() {
@@ -104,9 +131,6 @@ class Player {
         if (!theAssist.getUsed()) {
             theAssist.modifyTheQuiz();
         }
-        else {
-            console.log("helpUsedAlready");
-        }
     }
     toString() {
         return `Player name: ${this.name.toString()} holds so far ${this.moneyEarned}`;
@@ -153,9 +177,13 @@ class Stage {
     }
 }
 class Assist {
-    constructor(used = false, description) {
+    constructor(used = false, description, UIdescription) {
         this.used = used;
         this.description = description;
+        this.UIdescription = UIdescription;
+    }
+    getUIdescription() {
+        return this.UIdescription;
     }
     getUsed() {
         return this.used;
@@ -166,7 +194,7 @@ class Assist {
 }
 class AssistFiftyFifty extends Assist {
     constructor() {
-        super(false, "Hides 2 out of 4 incorrect options");
+        super(false, "Hides 2 out of 4 incorrect options", "50-50");
     }
     modifyTheQuiz() {
         let indexOfCorrectAnswer;
@@ -269,6 +297,8 @@ function initializeQuizUi() {
         yield loadInTheQuiz("./build/jsons/stageThreePartB.json", 11, 12, 6);
         yield loadInTheQuiz("./build/jsons/masters.json", 13, 14, 7);
         yield loadInTheQuiz("./build/jsons/masterDrEfremidis.json", 9, 15, 8);
+        domAssistPanelElement.emptyAssistPanelElement(); //in Case of reset
+        domAssistPanelElement.populateAssistPanelElement();
         domScorePanelElement.emptyScorePanelElement(); //in Case of reset
         domScorePanelElement.populateScorePanelElement();
         domQuestionElements.populateQuestionDomElements();
@@ -280,12 +310,21 @@ function updateStage() {
     domQuestionElements.populateQuestionDomElements();
 }
 function wonTheGame() {
+    theQuizUI.style.display = "none";
 }
+theVisibleResetBtn.addEventListener("click", function () {
+    resetTheGame();
+});
+restartTheGameBtn.addEventListener("click", function () {
+    resetTheGame();
+});
 function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("g");
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
         yield initializeQuizUi();
+        theQuizUI.style.display = "flex";
     });
 }
 function randomizer(min, max) {
@@ -295,7 +334,7 @@ let thePlayer = new Player("John", 0);
 let theQuiz = new TheQuiz(thePlayer, 0, 1);
 let isOnload = false;
 for (let e = 0; e < domQuestionElements.allOp.length; e++) {
-    domQuestionElements.allOp[e].addEventListener('click', function () {
+    domQuestionElements.allOp[e].parentElement.addEventListener('click', function () {
         if (isOnload) {
             return;
         }

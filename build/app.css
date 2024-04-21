@@ -1,4 +1,4 @@
-#theQuestion {
+#theQuestion, .assists {
   border: 1px solid rgb(1, 126, 192);
   border-radius: 30% 30% 30%;
 }
@@ -58,7 +58,31 @@ main {
   align-items: center;
 }
 
+.assists {
+  width: auto;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.assists:hover {
+  cursor: pointer;
+  background-color: rgb(240, 180, 69);
+}
+
+.assistUsed {
+  background-color: red;
+}
+.assistUsed:hover {
+  cursor: not-allowed;
+  background-color: red;
+}
+
 #assistsUI {
+  z-index: 5;
   width: 90%;
   height: 3.5em;
   position: relative;
@@ -66,10 +90,26 @@ main {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: calc(2em + 5px);
+  padding-left: calc(4.5em + 5px);
   padding-right: 2em;
   background-color: rgb(0, 32, 45);
   border-radius: 30px 0px 0px 0px;
+}
+#assistsUI__theVisibleResetBtn {
+  transition: 0.3s;
+  left: -1.3em;
+  top: -0.9em;
+  width: 5em;
+  height: 5em;
+  position: absolute;
+  background-image: url("../src/img/smallR.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+#assistsUI__theVisibleResetBtn:hover {
+  filter: drop-shadow(0 4px 8px rgba(172, 20, 20, 0.733));
+  cursor: pointer;
 }
 #assistsUI__assistList {
   width: auto;
@@ -89,11 +129,18 @@ main {
   background-repeat: no-repeat;
   background-size: contain;
 }
-#assistsUI__assistList__Buttons {
-  width: 2em;
+#assistsUI__Buttons {
+  width: 5em;
   height: 2em;
-  background-color: aqua;
+  position: absolute;
+  left: calc(50% - (1.3em + 4px));
 }
+#assistsUI__devMessage {
+  color: white;
+  font-family: "Times New Roman", serif;
+  text-align: center;
+}
+
 #scorePanel {
   width: 90%;
   height: 40%;
@@ -257,6 +304,9 @@ main {
 .qOption:hover {
   cursor: pointer;
 }
+.qOption:hover .qOptionText::before {
+  background-color: rgb(240, 180, 69);
+}
 .qOptionText {
   font-size: clamp(8px, 100%, 20px);
   width: 70%;
@@ -280,9 +330,6 @@ main {
   top: calc(50% - 0.4em);
   left: 0;
   margin-left: -10%;
-}
-.qOptionText:hover::before {
-  background-color: rgb(240, 180, 69);
 }
 
 .qWaitForAnswer {
@@ -321,7 +368,7 @@ main {
 @media screen and (max-width: 65em) {
   #assistsUI {
     width: 100%;
-    height: 20%;
+    height: 3.5em;
     position: relative;
   }
   #scorePanel {

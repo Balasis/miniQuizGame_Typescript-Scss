@@ -1,4 +1,11 @@
 const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
+const restartTheGameBtn:HTMLElement=document.getElementById("restartButton")!;
+const theVisibleResetBtn:HTMLElement=document.getElementById("assistsUI__theVisibleResetBtn")!;
+interface AssistPanelElement{
+    AssistBtnPanel:HTMLElement;
+    populateAssistPanelElement:()=>void;
+    emptyAssistPanelElement:()=>void;
+}
 interface ScorePanelElement{
     scorePanel:HTMLElement;
     emptyScorePanelElement:()=>void;
@@ -14,6 +21,34 @@ interface QuestionElements{
     allOp: HTMLCollectionOf<HTMLElement>;
     populateQuestionDomElements:()=>void;
     resetPotentialAssistsModifications:()=>void;
+}
+
+const domAssistPanelElement:AssistPanelElement={
+    AssistBtnPanel:document.getElementById("assistsUI__Buttons")!,
+    populateAssistPanelElement(){
+        const assists = theQuiz.getAllAssists();
+        for (const assist in assists) { 
+            let daAssist=assists[assist];
+            const assistDiv:HTMLElement = document.createElement("div");
+            assistDiv.id=`assistD_${assist}`;
+            assistDiv.textContent=daAssist.getUIdescription();
+            assistDiv.className="assists";
+            assistDiv.addEventListener("click",function(){
+                thePlayer.useAssist(daAssist);
+                if (daAssist.getUsed()){
+                    assistDiv.classList.add("assistUsed");
+                }
+            })
+            this.AssistBtnPanel.appendChild(assistDiv);
+
+        }
+
+    },
+    emptyAssistPanelElement(){
+        while(this.AssistBtnPanel.firstChild){
+            this.AssistBtnPanel.removeChild(this.AssistBtnPanel.firstChild);
+        } 
+    }
 }
 
 const domScorePanelElement:ScorePanelElement={
@@ -130,10 +165,7 @@ class Player{
     public useAssist(theAssist:Assist):void{
         if (!theAssist.getUsed()){
             theAssist.modifyTheQuiz();
-        }else{
-            console.log("helpUsedAlready");
-        }
-        
+        }        
     }
 
     public toString():string{
@@ -190,8 +222,11 @@ class Stage{
 
 
 abstract class Assist{
-    constructor(private used:boolean=false , private description:string){
+    constructor(private used:boolean=false , private description:string,private UIdescription:string){
 
+    }
+    public getUIdescription():string{
+        return this.UIdescription;
     }
     public getUsed():boolean{
         return this.used;
@@ -204,8 +239,7 @@ abstract class Assist{
 
 class AssistFiftyFifty extends Assist{
     constructor(){
-        super(false,"Hides 2 out of 4 incorrect options");
-
+        super(false,"Hides 2 out of 4 incorrect options","50-50");
     }
     public modifyTheQuiz():void{
         let indexOfCorrectAnswer;
@@ -326,7 +360,8 @@ await loadInTheQuiz("./build/jsons/stageThreePartA.json",9,10,5);
 await loadInTheQuiz("./build/jsons/stageThreePartB.json",11,12,6);
 await loadInTheQuiz("./build/jsons/masters.json",13,14,7);
 await loadInTheQuiz("./build/jsons/masterDrEfremidis.json",9,15,8);
-
+domAssistPanelElement.emptyAssistPanelElement();//in Case of reset
+domAssistPanelElement.populateAssistPanelElement();
 domScorePanelElement.emptyScorePanelElement();//in Case of reset
 domScorePanelElement.populateScorePanelElement();
 domQuestionElements.populateQuestionDomElements();
@@ -338,14 +373,21 @@ function updateStage():void{
     domQuestionElements.populateQuestionDomElements();
 }
 
-function wonTheGame():void{    
-    
+function wonTheGame():void{
+    theQuizUI.style.display="none";
 }
+theVisibleResetBtn.addEventListener("click",function(){
+    resetTheGame();
+});
+restartTheGameBtn.addEventListener("click",function(){
+    resetTheGame();
+});
 
-async function resetTheGame():Promise<void>{    
+async function resetTheGame():Promise<void>{   
 thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
 await initializeQuizUi();
+theQuizUI.style.display="flex";
 }
 
 function randomizer(min:number,max:number):number{
@@ -358,7 +400,7 @@ let isOnload:boolean=false;
 
 for(let e=0;e<domQuestionElements.allOp.length;e++){
 
-    domQuestionElements.allOp[e].addEventListener('click',function(){
+    domQuestionElements.allOp[e].parentElement!.addEventListener('click',function(){
         if(isOnload){
             return;
         }       
@@ -402,6 +444,7 @@ function showTheCorrectAnswer():void{
         }
     }
 }
+
 
 
 initializeQuizUi();
