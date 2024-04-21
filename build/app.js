@@ -264,7 +264,6 @@ function updateStage() {
     domQuestionElements.populateQuestionDomElements();
 }
 function wonTheGame() {
-    // console.log("You won the game");//placeholder;
 }
 function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -313,5 +312,5 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
 }
 initializeQuizUi();
 domQuestionElements.resetPotentialAssistsModifications();
+//listener of helps...
 // thePlayer.useAssist(theQuiz.getAnAssist("assistFiftyFifty"));
-// console.log(theQuiz.getAllAssists());
