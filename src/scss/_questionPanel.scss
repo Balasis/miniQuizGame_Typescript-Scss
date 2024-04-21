@@ -5,7 +5,7 @@
 
 
 #questionPanel{
-    @include mixins.dimensionsAndPosition(90%,50%,relative);
+    @include mixins.dimensionsAndPosition(90%,40%,relative);
     @include mixins.displayFlexAndItsProperties(column,center,center);
  }
  
