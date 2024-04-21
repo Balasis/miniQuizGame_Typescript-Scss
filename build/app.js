@@ -320,7 +320,6 @@ restartTheGameBtn.addEventListener("click", function () {
 });
 function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("g");
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
         yield initializeQuizUi();
