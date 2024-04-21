@@ -232,7 +232,7 @@ class TheQuiz{
 
     }
 
-    public settimeSinceQuizStarted(timeSinceQuizStarted:number):void{
+    public setTimeSinceQuizStarted(timeSinceQuizStarted:number):void{
         this.timeSinceQuizStarted=timeSinceQuizStarted;
     }
 
@@ -340,7 +340,6 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
 
     domQuestionElements.allOp[e].addEventListener('click',function(){
         if(isOnload){
-            // console.log("we are on load..plz try later");
             return;
         }       
         isOnload=true;

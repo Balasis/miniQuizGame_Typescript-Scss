@@ -190,7 +190,7 @@ class TheQuiz {
         let assistFiftyFifty = new AssistFiftyFifty();
         this.theAssists.assistFiftyFifty = assistFiftyFifty;
     }
-    settimeSinceQuizStarted(timeSinceQuizStarted) {
+    setTimeSinceQuizStarted(timeSinceQuizStarted) {
         this.timeSinceQuizStarted = timeSinceQuizStarted;
     }
     increaseStageCounter() {
