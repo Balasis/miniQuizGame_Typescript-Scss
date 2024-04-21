@@ -21,6 +21,7 @@ const domScorePanelElement = {
             const stageIndexDiv = document.createElement("div");
             stageIndexDiv.id = `n_${s}`;
             stageIndexDiv.textContent = s;
+            stageIndexDiv.className = "n1_BorderInitialColor";
             const stageAnsweredTickDiv = document.createElement("div");
             stageAnsweredTickDiv.id = `c_${s}`;
             stageAnsweredTickDiv.className = "stageAnsweredTick";
@@ -33,20 +34,28 @@ const domScorePanelElement = {
             stageDiv.appendChild(stageIndexDiv);
             stageDiv.appendChild(stageAnsweredTickDiv);
             stageDiv.appendChild(stageMoneyDiv);
-            //add orange background to the first one
+            // add orange background to the first one
             if (s == "1") {
-                stageDiv.style.backgroundColor = "orange";
+                stageDiv.classList.add("curStageBackground");
+                stageIndexDiv.classList.add("BorderRightColorCurrent");
             }
             this.scorePanel.insertBefore(stageDiv, this.scorePanel.firstChild);
+            document.getElementById("m_1").classList.add("curStageBackground");
         }
     },
     updateScorePanelUiFocusToNextStage() {
         let sc = theQuiz.getStageCounter();
         let prevStageDom = document.getElementById(`s_${sc - 1}`);
-        prevStageDom.style.backgroundColor = "initial";
+        prevStageDom.classList.remove("curStageBackground");
+        document.getElementById(`m_${sc - 1}`).classList.remove("curStageBackground");
+        document.getElementById(`n_${sc - 1}`).classList.remove("BorderRightColorCurrent");
+        prevStageDom.classList.add("previousStageBackground");
+        document.getElementById(`n_${sc - 1}`).classList.add("BorderRightColorPrevious");
         prevStageDom.querySelector(".stageAnsweredTick").textContent = "*";
         let curStageDom = document.getElementById(`s_${sc}`);
-        curStageDom.style.backgroundColor = "orange";
+        curStageDom.classList.add("curStageBackground");
+        document.getElementById(`m_${sc}`).classList.add("curStageBackground");
+        document.getElementById(`n_${sc}`).classList.add("BorderRightColorCurrent");
     }
 };
 const domQuestionElements = {
@@ -284,10 +293,12 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
             return;
         }
         isOnload = true;
-        domQuestionElements.allOp[e].style.color = "orange";
+        let parentElement = domQuestionElements.allOp[e].parentElement;
+        parentElement.classList.add("qWaitForAnswer");
         if (domQuestionElements.allOp[e].textContent == theQuiz.getCurrentCorrectAnswer()) {
             setTimeout(function () {
-                domQuestionElements.allOp[e].style.color = "green";
+                parentElement.classList.remove("qWaitForAnswer");
+                parentElement.classList.add("qAnswerWasCorrect");
                 setTimeout(function () {
                     if (theQuiz.getStageCounter() + 1 >= 16) {
                         wonTheGame();
@@ -295,14 +306,15 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
                     }
                     theQuiz.increaseStageCounter();
                     updateStage();
-                    domQuestionElements.allOp[e].style.color = "initial";
+                    parentElement.classList.remove("qAnswerWasCorrect");
                     isOnload = false;
                 }, 2000);
             }, 3000);
         }
         else {
             setTimeout(function () {
-                domQuestionElements.allOp[e].style.color = "red";
+                parentElement.classList.remove("qWaitForAnswer");
+                parentElement.classList.add("qAnswerWasWrong");
                 setTimeout(function () {
                 }, 2000);
             }, 3000);
@@ -311,5 +323,3 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
 }
 initializeQuizUi();
 domQuestionElements.resetPotentialAssistsModifications();
-//listener of helps...
-// thePlayer.useAssist(theQuiz.getAnAssist("assistFiftyFifty"));

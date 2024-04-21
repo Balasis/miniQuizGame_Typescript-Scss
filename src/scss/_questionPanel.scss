@@ -1,0 +1,95 @@
+@use './vars/colors';
+@use './vars/paths';
+@use './vars/mixins';
+@use './vars/extends';
+
+
+#questionPanel{
+    @include mixins.dimensionsAndPosition(50%,50%,relative);
+    @include mixins.displayFlexAndItsProperties(column,center,center);
+ }
+ 
+ #theQuestion{
+     margin:1em;
+     padding:1em;
+     color:colors.$color_TextColor;
+     background-color:colors.$color_QuestionBackground;
+     @include mixins.dimensionsAndPosition(100%,3em,relative);
+     @include mixins.displayFlexAndItsProperties(row,center,center);
+    @extend %questionBorderProperties;
+ }
+ 
+ #theOptions{
+     @include mixins.dimensionsAndPosition(100%,100%,relative);
+    
+     &__AB{
+         @extend %linesOfQuestions;
+         @include mixins.dimensionsAndPosition(100%,100%,relative);
+         @include mixins.displayFlexAndItsProperties(row,center,center);
+         &__A{
+             margin-left: 0;
+         }
+         &__B{
+            margin-right: 0;
+         }       
+     }
+     &__CD{
+         @extend %linesOfQuestions;
+         @include mixins.dimensionsAndPosition(100%,100%,relative);
+         @include mixins.displayFlexAndItsProperties(row,center,center);
+         &__C{
+            margin-left: 0;
+         }
+         &__D{
+            margin-right: 0;
+         }
+     }
+ }
+ 
+ .qOption{ 
+     @include mixins.dimensionsAndPosition(50%,100%,relative);
+     @include mixins.displayFlexAndItsProperties(row,center,center);
+     
+     padding:0.5em;    
+     border:1px solid colors.$color_BorderColorOfOptions;
+     border-radius: 30% 30% 30%;
+     background-color:colors.$color_QuestionBackground;
+     margin:0.5em;
+     margin-top:0;
+     &:hover{         
+         cursor:pointer;
+        //  & div:first-child:first-child{
+        //     background-color:colors.$color_OptionHoverBackground;
+        //  }
+     }           
+ 
+     &Text{
+             @include mixins.dimensionsAndPosition(100%,100%,relative);
+             @include mixins.displayFlexAndItsProperties(row,center,center);
+             color:colors.$color_TextColor;
+             &:before{
+                 // @include mixins.displayFlexAndItsProperties(row,center,center);
+                 content:"";
+                 @include mixins.dimensionsAndPosition(0.8em,0.8em,absolute);
+                 background-color:rgb(175, 175, 179);
+                 transform:rotate(45deg);  
+                 top: calc(50% - 0.4em);
+                 left:20%;                
+             }
+             &:hover::before{                
+                    background-color:colors.$color_OptionHoverBackground;
+             }
+             
+     }
+
+ }
+
+ .qWaitForAnswer{
+    background-color:colors.$color_OptionHoverBackground;
+ }
+ .qAnswerWasCorrect{
+    background-color:colors.$color_OptionWasCorrectBackground;
+ }
+ .qAnswerWasWrong{
+    background-color:red;
+ }

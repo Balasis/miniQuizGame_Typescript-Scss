@@ -1,0 +1,17 @@
+@use './mixins';
+@use './colors';
+%questionBorderProperties{
+    border:1px solid colors.$color_BorderColorOfOptions;
+    border-radius: 30% 30% 30%;
+}
+
+%linesOfQuestions{
+    &::before{
+        content:"";
+        @include mixins.dimensionsAndPosition(100%,1em,absolute);
+        color:grey;
+        pointer-events: none;      
+    }
+
+ 
+}

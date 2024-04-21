@@ -1,0 +1,19 @@
+@mixin dimensionsAndPosition($w,$h,$p){
+    width:$w;
+    height:$h;
+    position:$p;
+    }
+
+@mixin displayFlexAndItsProperties($flexDirection,$justifyC,$alignI){
+    display:flex;
+    flex-direction: $flexDirection;
+    justify-content: $justifyC;
+    align-items: $alignI;
+}
+
+@mixin backgroundProps($url,$position,$repeat,$size){
+    background-image:url($url);
+    background-position: $position;
+    background-repeat: $repeat;
+    background-size: $size;
+}
