@@ -5,7 +5,7 @@
 
 
 #questionPanel{
-    @include mixins.dimensionsAndPosition(50%,50%,relative);
+    @include mixins.dimensionsAndPosition(90%,50%,relative);
     @include mixins.displayFlexAndItsProperties(column,center,center);
  }
  
@@ -68,13 +68,15 @@
              @include mixins.displayFlexAndItsProperties(row,center,center);
              color:colors.$color_TextColor;
              &:before{
-                 // @include mixins.displayFlexAndItsProperties(row,center,center);
+                 display:flex;
                  content:"";
                  @include mixins.dimensionsAndPosition(0.8em,0.8em,absolute);
                  background-color:rgb(175, 175, 179);
                  transform:rotate(45deg);  
                  top: calc(50% - 0.4em);
-                 left:20%;                
+                 left:0;
+                 margin-left:10%;   
+                              
              }
              &:hover::before{                
                     background-color:colors.$color_OptionHoverBackground;

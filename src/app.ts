@@ -24,6 +24,7 @@ const domScorePanelElement:ScorePanelElement={
         }  
     },
     populateScorePanelElement(){
+        
         for (const s in theQuiz.getStagesBoard()) {  
 
             const stageIndexDiv:HTMLElement = document.createElement("div");
@@ -36,25 +37,29 @@ const domScorePanelElement:ScorePanelElement={
             stageAnsweredTickDiv.className="stageAnsweredTick";
             stageAnsweredTickDiv.textContent="";
         
-            const stageMoneyDiv:HTMLElement = document.createElement("div");
-            stageMoneyDiv.id=`m_${s}`;
-            stageMoneyDiv.textContent=theQuiz.getStagesBoard()[s]["stageMoney"].toString();
+            const stageTitleDiv:HTMLElement = document.createElement("div");
+            stageTitleDiv.id=`m_${s}`;
+            stageTitleDiv.textContent=theQuiz.getStagesBoard()[s]["stageTitle"].toString();
+            stageTitleDiv.className="m1_BorderInitialProps";
         
             const stageDiv:HTMLElement = document.createElement("div");
             stageDiv.id=`s_${s}`;
             stageDiv.appendChild(stageIndexDiv);
             stageDiv.appendChild(stageAnsweredTickDiv);
-            stageDiv.appendChild(stageMoneyDiv);
+            stageDiv.appendChild(stageTitleDiv);
             // add orange background to the first one
             if (s=="1"){
             stageDiv.classList.add("curStageBackground");
             stageIndexDiv.classList.add("BorderRightColorCurrent");    
             }
             this.scorePanel.insertBefore(stageDiv,this.scorePanel.firstChild);
-            document.getElementById("m_1")!.classList.add("curStageBackground");
         } 
+        
+        document.getElementById("m_1")!.classList.add("curStageBackground");
+      
     },
     updateScorePanelUiFocusToNextStage(){
+
     let sc:number=theQuiz.getStageCounter();
 
     let prevStageDom:HTMLElement=document.getElementById(`s_${sc-1}`)!;
@@ -63,7 +68,8 @@ const domScorePanelElement:ScorePanelElement={
     document.getElementById(`n_${sc-1}`)!.classList.remove("BorderRightColorCurrent");
     
 
-    prevStageDom.classList.add("previousStageBackground");  
+    prevStageDom.classList.add("previousStageBackground");
+    document.getElementById(`m_${sc-1}`)!.classList.add("previousStageBackground");
     document.getElementById(`n_${sc-1}`)!.classList.add("BorderRightColorPrevious");
 
     prevStageDom.querySelector(".stageAnsweredTick")!.textContent="*";
@@ -74,8 +80,6 @@ const domScorePanelElement:ScorePanelElement={
     document.getElementById(`n_${sc}`)!.classList.add("BorderRightColorCurrent");
     }
 }
-
-
 
 const domQuestionElements:QuestionElements={
     theQuestion:document.getElementById("theQuestion")!,
@@ -101,8 +105,6 @@ const domQuestionElements:QuestionElements={
         }
     }
 }
-
-
 
 class Player{
     public constructor(private name:string,private moneyEarned:number){
@@ -162,15 +164,15 @@ class Question{
 
 
 class Stage{    
-    public constructor(private stageNumber: number,private stageMoney:number,private assistUsed:boolean, private question: Question){        
+    public constructor(private stageNumber: number,private stageTitle:String,private assistUsed:boolean, private question: Question){        
     }
 
     public getStageNumber():number{
         return this.stageNumber;
     }
 
-    public getStageMoney():number{
-        return this.stageMoney;
+    public getstageTitle():String{
+        return this.stageTitle;
     }
 
     public getQuestion(): Question {

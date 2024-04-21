@@ -26,22 +26,23 @@ const domScorePanelElement = {
             stageAnsweredTickDiv.id = `c_${s}`;
             stageAnsweredTickDiv.className = "stageAnsweredTick";
             stageAnsweredTickDiv.textContent = "";
-            const stageMoneyDiv = document.createElement("div");
-            stageMoneyDiv.id = `m_${s}`;
-            stageMoneyDiv.textContent = theQuiz.getStagesBoard()[s]["stageMoney"].toString();
+            const stageTitleDiv = document.createElement("div");
+            stageTitleDiv.id = `m_${s}`;
+            stageTitleDiv.textContent = theQuiz.getStagesBoard()[s]["stageTitle"].toString();
+            stageTitleDiv.className = "m1_BorderInitialProps";
             const stageDiv = document.createElement("div");
             stageDiv.id = `s_${s}`;
             stageDiv.appendChild(stageIndexDiv);
             stageDiv.appendChild(stageAnsweredTickDiv);
-            stageDiv.appendChild(stageMoneyDiv);
+            stageDiv.appendChild(stageTitleDiv);
             // add orange background to the first one
             if (s == "1") {
                 stageDiv.classList.add("curStageBackground");
                 stageIndexDiv.classList.add("BorderRightColorCurrent");
             }
             this.scorePanel.insertBefore(stageDiv, this.scorePanel.firstChild);
-            document.getElementById("m_1").classList.add("curStageBackground");
         }
+        document.getElementById("m_1").classList.add("curStageBackground");
     },
     updateScorePanelUiFocusToNextStage() {
         let sc = theQuiz.getStageCounter();
@@ -50,6 +51,7 @@ const domScorePanelElement = {
         document.getElementById(`m_${sc - 1}`).classList.remove("curStageBackground");
         document.getElementById(`n_${sc - 1}`).classList.remove("BorderRightColorCurrent");
         prevStageDom.classList.add("previousStageBackground");
+        document.getElementById(`m_${sc - 1}`).classList.add("previousStageBackground");
         document.getElementById(`n_${sc - 1}`).classList.add("BorderRightColorPrevious");
         prevStageDom.querySelector(".stageAnsweredTick").textContent = "*";
         let curStageDom = document.getElementById(`s_${sc}`);
@@ -128,17 +130,17 @@ class Question {
     }
 }
 class Stage {
-    constructor(stageNumber, stageMoney, assistUsed, question) {
+    constructor(stageNumber, stageTitle, assistUsed, question) {
         this.stageNumber = stageNumber;
-        this.stageMoney = stageMoney;
+        this.stageTitle = stageTitle;
         this.assistUsed = assistUsed;
         this.question = question;
     }
     getStageNumber() {
         return this.stageNumber;
     }
-    getStageMoney() {
-        return this.stageMoney;
+    getstageTitle() {
+        return this.stageTitle;
     }
     getQuestion() {
         return this.question;

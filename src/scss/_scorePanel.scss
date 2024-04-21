@@ -5,7 +5,7 @@
 
 
 #scorePanel{
-    @include mixins.dimensionsAndPosition(50%,50%,relative);    
+    @include mixins.dimensionsAndPosition(90%,50%,relative);    
         border:5px solid colors.$color_BorderColorOfOptions;
         border-radius:30px 30px 30px 0px;
         overflow: hidden;
@@ -32,14 +32,19 @@
     & *:nth-child(3){
         @include mixins.displayFlexAndItsProperties(row,center,center);
         @include mixins.dimensionsAndPosition(100%,100%,relative);
-        background-color:rgba(0,0,0,0.8) ;
+        
         padding:0.3em;
   
     }
     
     padding-left:2em;
 }
-//first on load board
+//classes to be added in the border subdivs , they are seperated because >div gives priority to them
+//(perhaps I should have added classes from the start to get it done...css give me a headache with those priorities semantics
+.m1_BorderInitialProps{
+    background-color:rgba(0,0,0,0.8) ;
+}
+
 .n1_BorderInitialColor{
     border: {
         left:4px solid colors.$color_BorderColorOfOptions;
