@@ -14,11 +14,15 @@
 }
 %borderProperties{
     border:1px solid grey;
+    
+    
+}
+%linesOfQuestions{
     &::before{
         content:"";
         @include dimensionsAndPosition(100%,1em,absolute);
-        top:50%;
         color:grey;
+        pointer-events: none;      
     }
 }
 main{
@@ -37,36 +41,55 @@ main{
     @include displayFlexAndItsProperties(row,center,center);
 }
 #questionPanel{
-   @include dimensionsAndPosition(auto,100%,relative);
+   @include dimensionsAndPosition(50%,50%,relative);
    @include displayFlexAndItsProperties(column,center,center);
     display:flex;
 }
 
+#theQuestion{
+    padding:1em;
+}
+
 #theOptions{
-    @include dimensionsAndPosition(auto,30%,relative);
+    @include dimensionsAndPosition(100%,100%,relative);
    
     &__AB{
-
-
-
+        @extend %linesOfQuestions;
+        @include dimensionsAndPosition(100%,100%,relative);
+        @include displayFlexAndItsProperties(row,center,center);
         &__A{
             
         }
         &__B{
-
+           
         }       
     }
     &__CD{
-
+        @extend %linesOfQuestions;
+        @include dimensionsAndPosition(100%,100%,relative);
+        @include displayFlexAndItsProperties(row,center,center);
         &__C{
-
+          
         }
         &__D{
-
+            
         }
     }
 }
 
 .qOption{
+    padding:0.5em;
+    width:50%;
+    @include displayFlexAndItsProperties(row,center,center);
     @extend %borderProperties;
+        &:hover{
+            background-color:colors.$color_OptionHoverBackground;
+        }
+        &:before{
+            content:"";
+            @include dimensionsAndPosition(0.8em,0.8em,absolute);
+            background-color:blue;
+            transform:rotate(45deg);
+            
+        }
 }

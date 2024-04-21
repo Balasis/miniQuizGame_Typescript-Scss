@@ -51,11 +51,11 @@ const domScorePanelElement = {
 };
 const domQuestionElements = {
     theQuestion: document.getElementById("theQuestion"),
-    theOpA: document.getElementById("theOptions__AB__A"),
-    theOpB: document.getElementById("theOptions__AB__B"),
-    theOpC: document.getElementById("theOptions__CD__C"),
-    theOpD: document.getElementById("theOptions__CD__D"),
-    allOp: document.getElementsByClassName("qOption"),
+    theOpA: document.getElementById("theOptions__AB__A__text"),
+    theOpB: document.getElementById("theOptions__AB__B__text"),
+    theOpC: document.getElementById("theOptions__CD__C__text"),
+    theOpD: document.getElementById("theOptions__CD__D__text"),
+    allOp: document.getElementsByClassName("qOptionText"),
     populateQuestionDomElements() {
         let sc = theQuiz.getStageCounter();
         this.theQuestion.textContent = theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
