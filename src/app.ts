@@ -67,10 +67,10 @@ const domScorePanelElement:ScorePanelElement={
 
 const domQuestionElements:QuestionElements={
     theQuestion:document.getElementById("theQuestion")!,
-    theOpA:document.getElementById("theOptions__A&B__A")!,
-    theOpB:document.getElementById("theOptions__A&B__B")!,
-    theOpC:document.getElementById("theOptions__C&D__C")!,
-    theOpD:document.getElementById("theOptions__C&D__D")!,
+    theOpA:document.getElementById("theOptions__AB__A")!,
+    theOpB:document.getElementById("theOptions__AB__B")!,
+    theOpC:document.getElementById("theOptions__CD__C")!,
+    theOpD:document.getElementById("theOptions__CD__D")!,
     allOp:document.getElementsByClassName("qOption") as HTMLCollectionOf<HTMLElement>,
 
     populateQuestionDomElements(){

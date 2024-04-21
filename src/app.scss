@@ -1,22 +1,72 @@
 @use './colors';
+@use './basicPageProp';
 
-
-html{
-height: 100%;
-width:100%;
-overflow-x:hidden;
+@mixin dimensionsAndPosition($w,$h,$p){
+    width:$w;
+    height:$h;
+    position:$p;
+    }
+@mixin displayFlexAndItsProperties($flexDirection,$justifyC,$alignI){
+    display:flex;
+    flex-direction: $flexDirection;
+    justify-content: $justifyC;
+    align-items: $alignI;
+}
+%borderProperties{
+    border:1px solid grey;
+    &::before{
+        content:"";
+        @include dimensionsAndPosition(100%,1em,absolute);
+        top:50%;
+        color:grey;
+    }
+}
+main{
+@include dimensionsAndPosition(100%,100%,relative);
 }
 
-html,body{
-padding:0;
-margin:0;
+#theQuizUI{
+@include displayFlexAndItsProperties(column,center,center);
 }
 
-body{
-min-height:100%;
-overflow-x:hidden;
+#scorePanel{
+ @include dimensionsAndPosition(50%,50%,relative);
 }
 
-*{
-    box-sizing: border-box;
+#scorePanel > div{
+    @include displayFlexAndItsProperties(row,center,center);
+}
+#questionPanel{
+   @include dimensionsAndPosition(auto,100%,relative);
+   @include displayFlexAndItsProperties(column,center,center);
+    display:flex;
+}
+
+#theOptions{
+    @include dimensionsAndPosition(auto,30%,relative);
+   
+    &__AB{
+
+
+
+        &__A{
+            
+        }
+        &__B{
+
+        }       
+    }
+    &__CD{
+
+        &__C{
+
+        }
+        &__D{
+
+        }
+    }
+}
+
+.qOption{
+    @extend %borderProperties;
 }
