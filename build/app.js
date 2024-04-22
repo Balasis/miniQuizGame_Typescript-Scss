@@ -12,6 +12,7 @@ const theQuizUI = document.getElementById("theQuizUI");
 const restartTheGameBtn = document.getElementById("restartButton");
 const theVisibleResetBtn = document.getElementById("assistsUI__theVisibleResetBtn");
 const wonTheGameDiv = document.getElementById("wonTheGame");
+let isOnload = false;
 const domAssistPanelElement = {
     AssistBtnPanel: document.getElementById("assistsUI__Buttons"),
     populateAssistPanelElement() {
@@ -327,6 +328,9 @@ restartTheGameBtn.addEventListener("click", function () {
 });
 function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
+        if (isOnload) {
+            return;
+        }
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
         yield initializeQuizUi();
@@ -342,7 +346,6 @@ function randomizer(min, max) {
 }
 let thePlayer = new Player("John", 0);
 let theQuiz = new TheQuiz(thePlayer, 0, 1);
-let isOnload = false;
 for (let e = 0; e < domQuestionElements.allOp.length; e++) {
     domQuestionElements.allOp[e].parentElement.addEventListener('click', function () {
         if (isOnload) {
@@ -358,6 +361,7 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
                 setTimeout(function () {
                     if (theQuiz.getStageCounter() + 1 >= 16) {
                         wonTheGame();
+                        isOnload = false;
                         return;
                     }
                     theQuiz.increaseStageCounter();
@@ -373,8 +377,6 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
                 parentElement.classList.remove("qWaitForAnswer");
                 parentElement.classList.add("qAnswerWasWrong");
                 showTheCorrectAnswer();
-                setTimeout(function () {
-                }, 2000);
             }, 3000);
         }
     });
