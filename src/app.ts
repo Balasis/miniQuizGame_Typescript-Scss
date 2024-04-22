@@ -1,6 +1,7 @@
 const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
 const restartTheGameBtn:HTMLElement=document.getElementById("restartButton")!;
 const theVisibleResetBtn:HTMLElement=document.getElementById("assistsUI__theVisibleResetBtn")!;
+const wonTheGameDiv:HTMLElement=document.getElementById("wonTheGame")!;
 interface AssistPanelElement{
     AssistBtnPanel:HTMLElement;
     populateAssistPanelElement:()=>void;
@@ -374,7 +375,14 @@ function updateStage():void{
 }
 
 function wonTheGame():void{
-    theQuizUI.style.display="none";
+    theQuizUI.parentElement!.style.pointerEvents="none";
+    theQuizUI.parentElement!.classList.add("animationForWinning");
+    setTimeout(function(){
+        theQuizUI.parentElement!.style.display="none";
+        wonTheGameDiv.style.display="flex";
+        wonTheGameDiv.classList.add("animationForWinningOnWon");
+    },5000)
+    
 }
 theVisibleResetBtn.addEventListener("click",function(){
     resetTheGame();
@@ -387,7 +395,11 @@ async function resetTheGame():Promise<void>{
 thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
 await initializeQuizUi();
-theQuizUI.style.display="flex";
+wonTheGameDiv.style.display="none";
+wonTheGameDiv.classList.remove("animationForWinningOnWon");   
+theQuizUI.parentElement!.classList.remove("animationForWinning");
+theQuizUI.parentElement!.style.pointerEvents="auto";
+theQuizUI.parentElement!.style.display="flex";
 }
 
 function randomizer(min:number,max:number):number{
@@ -421,6 +433,7 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
                         updateStage();
                         parentElement.classList.remove("qAnswerWasCorrect");
                         isOnload=false;
+                        console.log(theQuiz.getCurrentCorrectAnswer());
                     },2000)                    
             },3000 )
            

@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const theQuizUI = document.getElementById("theQuizUI");
 const restartTheGameBtn = document.getElementById("restartButton");
 const theVisibleResetBtn = document.getElementById("assistsUI__theVisibleResetBtn");
+const wonTheGameDiv = document.getElementById("wonTheGame");
 const domAssistPanelElement = {
     AssistBtnPanel: document.getElementById("assistsUI__Buttons"),
     populateAssistPanelElement() {
@@ -310,7 +311,13 @@ function updateStage() {
     domQuestionElements.populateQuestionDomElements();
 }
 function wonTheGame() {
-    theQuizUI.style.display = "none";
+    theQuizUI.parentElement.style.pointerEvents = "none";
+    theQuizUI.parentElement.classList.add("animationForWinning");
+    setTimeout(function () {
+        theQuizUI.parentElement.style.display = "none";
+        wonTheGameDiv.style.display = "flex";
+        wonTheGameDiv.classList.add("animationForWinningOnWon");
+    }, 5000);
 }
 theVisibleResetBtn.addEventListener("click", function () {
     resetTheGame();
@@ -323,7 +330,11 @@ function resetTheGame() {
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
         yield initializeQuizUi();
-        theQuizUI.style.display = "flex";
+        wonTheGameDiv.style.display = "none";
+        wonTheGameDiv.classList.remove("animationForWinningOnWon");
+        theQuizUI.parentElement.classList.remove("animationForWinning");
+        theQuizUI.parentElement.style.pointerEvents = "auto";
+        theQuizUI.parentElement.style.display = "flex";
     });
 }
 function randomizer(min, max) {
@@ -353,6 +364,7 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
                     updateStage();
                     parentElement.classList.remove("qAnswerWasCorrect");
                     isOnload = false;
+                    console.log(theQuiz.getCurrentCorrectAnswer());
                 }, 2000);
             }, 3000);
         }
