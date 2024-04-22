@@ -141,7 +141,7 @@ const domQuestionElements:QuestionElements={
             }
 
         }
-    }
+    },
 
     populateQuestionDomElements(){
         let sc:number=theQuiz.getStageCounter();
