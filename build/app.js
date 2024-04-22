@@ -96,6 +96,20 @@ const domQuestionElements = {
     theOpC: document.getElementById("theOptions__CD__C__text"),
     theOpD: document.getElementById("theOptions__CD__D__text"),
     allOp: document.getElementsByClassName("qOptionText"),
+    resetClassesOfOptions() {
+        var _a, _b, _c;
+        for (let i = 0; i < this.allOp.length; i++) {
+            if (this.allOp[i].parentElement.classList.contains("qAnswerWasCorrect")) {
+                (_a = this.allOp[i].parentElement) === null || _a === void 0 ? void 0 : _a.classList.remove("qAnswerWasCorrect");
+            }
+            if (this.allOp[i].parentElement.classList.contains("qWaitForAnswer")) {
+                (_b = this.allOp[i].parentElement) === null || _b === void 0 ? void 0 : _b.classList.remove("qWaitForAnswer");
+            }
+            if (this.allOp[i].parentElement.classList.contains("qAnswerWasWrong")) {
+                (_c = this.allOp[i].parentElement) === null || _c === void 0 ? void 0 : _c.classList.remove("qAnswerWasWrong");
+            }
+        }
+    },
     populateQuestionDomElements() {
         let sc = theQuiz.getStageCounter();
         this.theQuestion.textContent = theQuiz.getStagesBoard()[sc].getQuestion().getTheQuestion();
@@ -303,6 +317,7 @@ function initializeQuizUi() {
         domAssistPanelElement.populateAssistPanelElement();
         domScorePanelElement.emptyScorePanelElement(); //in Case of reset
         domScorePanelElement.populateScorePanelElement();
+        domQuestionElements.resetClassesOfOptions();
         domQuestionElements.populateQuestionDomElements();
     });
 }
@@ -328,9 +343,11 @@ restartTheGameBtn.addEventListener("click", function () {
 });
 function resetTheGame() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(isOnload);
         if (isOnload) {
             return;
         }
+        console.log("gothere");
         thePlayer = new Player("John", 0);
         theQuiz = new TheQuiz(thePlayer, 0, 1);
         yield initializeQuizUi();
@@ -377,6 +394,7 @@ for (let e = 0; e < domQuestionElements.allOp.length; e++) {
                 parentElement.classList.remove("qWaitForAnswer");
                 parentElement.classList.add("qAnswerWasWrong");
                 showTheCorrectAnswer();
+                isOnload = false;
             }, 3000);
         }
     });

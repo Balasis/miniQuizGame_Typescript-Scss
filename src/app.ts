@@ -24,6 +24,7 @@ interface QuestionElements{
     allOp: HTMLCollectionOf<HTMLElement>;
     populateQuestionDomElements:()=>void;
     resetPotentialAssistsModifications:()=>void;
+    resetClassesOfOptions:()=>void;
 }
 
 const domAssistPanelElement:AssistPanelElement={
@@ -126,6 +127,21 @@ const domQuestionElements:QuestionElements={
     theOpC:document.getElementById("theOptions__CD__C__text")!,
     theOpD:document.getElementById("theOptions__CD__D__text")!,
     allOp:document.getElementsByClassName("qOptionText") as HTMLCollectionOf<HTMLElement>,
+
+    resetClassesOfOptions(){
+        for (let i=0;i<this.allOp.length;i++){
+            if (this.allOp[i].parentElement!.classList.contains("qAnswerWasCorrect")){
+                this.allOp[i].parentElement?.classList.remove("qAnswerWasCorrect");
+            }
+            if (this.allOp[i].parentElement!.classList.contains("qWaitForAnswer")){
+                this.allOp[i].parentElement?.classList.remove("qWaitForAnswer");
+            }
+            if (this.allOp[i].parentElement!.classList.contains("qAnswerWasWrong")){
+                this.allOp[i].parentElement?.classList.remove("qAnswerWasWrong");
+            }
+
+        }
+    }
 
     populateQuestionDomElements(){
         let sc:number=theQuiz.getStageCounter();
@@ -365,8 +381,11 @@ await loadInTheQuiz("./build/jsons/masters.json",13,14,7);
 await loadInTheQuiz("./build/jsons/masterDrEfremidis.json",9,15,8);
 domAssistPanelElement.emptyAssistPanelElement();//in Case of reset
 domAssistPanelElement.populateAssistPanelElement();
+
 domScorePanelElement.emptyScorePanelElement();//in Case of reset
 domScorePanelElement.populateScorePanelElement();
+
+domQuestionElements.resetClassesOfOptions();
 domQuestionElements.populateQuestionDomElements();
 }
 
@@ -394,9 +413,11 @@ restartTheGameBtn.addEventListener("click",function(){
 });
 
 async function resetTheGame():Promise<void>{
+    console.log(isOnload);
     if(isOnload){
         return;
     }   
+    console.log("gothere");
 thePlayer=new Player("John",0);
 theQuiz=new TheQuiz(thePlayer,0,1);
 await initializeQuizUi();
@@ -447,7 +468,8 @@ for(let e=0;e<domQuestionElements.allOp.length;e++){
             setTimeout( function(){ 
                 parentElement.classList.remove("qWaitForAnswer");
                 parentElement.classList.add("qAnswerWasWrong");
-                showTheCorrectAnswer();                  
+                showTheCorrectAnswer();  
+                isOnload=false;                
             },3000 )
         }         
     })
