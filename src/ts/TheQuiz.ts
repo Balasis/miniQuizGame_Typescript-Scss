@@ -1,7 +1,7 @@
-import { Player } from "./Player.js";
-import { Assist } from "./Assist.js";
-import { Stage } from "./Stage.js";
-import { AssistFiftyFifty } from "./AssistFiftyFifty.js";
+import { Player } from "./Player";
+import { Assist } from "./Assist";
+import { Stage } from "./Stage";
+import { AssistFiftyFifty } from "./AssistFiftyFifty";
 
 export class TheQuiz{
     private thePlayer:Player;

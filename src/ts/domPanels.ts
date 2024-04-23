@@ -1,5 +1,4 @@
-import {theQuiz} from "../app.js";
-import {thePlayer} from "../app.js";
+import {theQuiz,thePlayer} from "../app";
 
 
 interface AssistPanelElement{

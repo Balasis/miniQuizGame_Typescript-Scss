@@ -1,8 +1,7 @@
-import { Player } from "./ts/Player.js";
-import {domQuestionElements} from "./ts/domPanels.js";
-import {TheQuiz} from "./ts/TheQuiz.js";
-import { anOptionWasChosen } from "./ts/Controllers.js";
-import {initializeQuizUi} from "./ts/Controllers.js";
+import { Player } from "./ts/Player";
+import {domQuestionElements} from "./ts/domPanels";
+import {TheQuiz} from "./ts/TheQuiz";
+import { anOptionWasChosen,initializeQuizUi } from "./ts/Controllers";
 //functions in order other ts files have access to reset the values 
 //since imports are read only 
 export function setThePlayer(player: Player): void {

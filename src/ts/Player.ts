@@ -1,4 +1,4 @@
-import { Assist } from "./Assist.js";
+import { Assist } from "./Assist";
 
 export class Player{
     public constructor(private name:string,private moneyEarned:number){

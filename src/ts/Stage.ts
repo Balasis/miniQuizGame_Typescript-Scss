@@ -1,4 +1,4 @@
-import {Question} from "./Question.js";
+import {Question} from "./Question";
 export class Stage{    
     public constructor(private stageNumber: number,private stageTitle:String,private assistUsed:boolean, private question: Question){        
     }

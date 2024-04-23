@@ -1,12 +1,12 @@
-import { Player } from "./Player.js";
-import { Question } from "./Question.js";
-import { Stage } from "./Stage.js";
-import {difficultyLevel} from "./types.js";
-import {domAssistPanelElement,domScorePanelElement,domQuestionElements} from "./domPanels.js";
-import {TheQuiz} from "./TheQuiz.js";
-import { setThePlayer, setTheQuiz } from "../app.js";
-import { thePlayer,theQuiz } from "../app.js";
-import { randomizer } from "./Utilities.js";
+import { Player } from "./Player";
+import { Question } from "./Question";
+import { Stage } from "./Stage";
+import {difficultyLevel} from "./types";
+import {domAssistPanelElement,domScorePanelElement,domQuestionElements} from "./domPanels";
+import {TheQuiz} from "./TheQuiz";
+import { setThePlayer, setTheQuiz } from "../app";
+import { thePlayer,theQuiz } from "../app";
+import { randomizer } from "./Utilities";
 
 const theQuizUI:HTMLElement=document.getElementById("theQuizUI")!;
 const restartTheGameBtn:HTMLElement=document.getElementById("restartButton")!;

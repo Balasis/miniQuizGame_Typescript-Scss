@@ -1,4 +1,4 @@
-import {difficultyLevel} from "./types.js";
+import {difficultyLevel} from "./types";
 export class Question{    
     private readonly difficulty:difficultyLevel;
     public constructor(private readonly question:string,private readonly options: string[],private readonly correctAnswer:string,difficulty:difficultyLevel){
