@@ -17,9 +17,10 @@ interface QuestionElements{
     theQuestion:HTMLElement;
     theOpA: HTMLElement;
     theOpB: HTMLElement;
-    theOpC: HTMLElement;
+    theOpC: HTMLElement; 
     theOpD: HTMLElement;
-    allOp: HTMLCollectionOf<HTMLElement>;
+    allOp:HTMLCollectionOf<Element>;
+    //HTMLCollectionOf<HTMLElement>
     populateQuestionDomElements:()=>void;
     resetPotentialAssistsModifications:()=>void;
     resetClassesOfOptions:()=>void;
@@ -125,8 +126,8 @@ export const domScorePanelElement:ScorePanelElement={
     theOpB:document.getElementById("theOptions__AB__B__text")!,
     theOpC:document.getElementById("theOptions__CD__C__text")!,
     theOpD:document.getElementById("theOptions__CD__D__text")!,
-    allOp:document.getElementsByClassName("qOptionText") as HTMLCollectionOf<HTMLElement>,
-
+    allOp:document.getElementsByClassName("qOptionText"),
+    // as HTMLCollectionOf<HTMLElement>
     resetClassesOfOptions(){
         for (let i=0;i<this.allOp.length;i++){
             if (this.allOp[i].parentElement!.classList.contains("qAnswerWasCorrect")){
@@ -152,9 +153,11 @@ export const domScorePanelElement:ScorePanelElement={
         this.theOpD.textContent=theQuiz.getStagesBoard()[sc]["question"]["options"][3];
     },
     resetPotentialAssistsModifications(){
-        for(const p of this.allOp){
-            //reset 50-50 assist
-            p.style.pointerEvents = "auto";
+            // Convert HTMLCollection to array
+        const optionsArray = Array.from(this.allOp);
+        for(const p of optionsArray){
+            // Reset 50-50 assist
+            (p as HTMLElement).style.pointerEvents = "auto";
         }
     }
 }

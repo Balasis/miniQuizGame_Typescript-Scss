@@ -22,7 +22,7 @@ export class AssistFiftyFifty extends Assist{
             if (r!=indexOfCorrectAnswer && !indexNumbersToBeHidden.includes(r)){
                 indexNumbersToBeHidden.push(r);
                 domQuestionElements.allOp[r].textContent="";
-                domQuestionElements.allOp[r].style.pointerEvents="none";
+                (domQuestionElements.allOp[r] as HTMLElement).style.pointerEvents="none";
                 numberOfHidden++;
             }
        }
