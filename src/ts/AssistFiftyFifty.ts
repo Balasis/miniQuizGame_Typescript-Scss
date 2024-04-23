@@ -1,7 +1,7 @@
 import {Assist} from "./Assist.js";
 import {domQuestionElements} from "./domPanels.js";
 import { theQuiz } from "../app.js";
-import { randomizer } from "../app.js";
+import { randomizer } from "./Utilities.js";
 
 export class AssistFiftyFifty extends Assist{
     constructor(){
