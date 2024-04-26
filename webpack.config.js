@@ -4,8 +4,9 @@ module.exports = {
   mode: 'development',
   entry: './src/app.ts',
   output: {
-    path: path.resolve(__dirname, './build'),
-    filename: './build/app.js',    
+    path: path.resolve(__dirname , 'build'),
+    publicPath: '/build/',
+    filename: 'app.js'    
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -27,6 +28,3 @@ module.exports = {
     port: 9000,
   },
 };
-
-
-
